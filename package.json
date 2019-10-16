@@ -1,0 +1,36 @@
+{
+  "name": "making_things_done_app",
+  "version": "1.0.0",
+  "description": "It's a ToDo App - Full featured with Javascript, OOP, aiming SOLID principles.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "watchdev": "webpack --watch --development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stiakov/making_things_done_app.git"
+  },
+  "keywords": [
+    "JavaScript",
+    "DOM",
+    "OOP"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stiakov/making_things_done_app/issues"
+  },
+  "homepage": "https://github.com/stiakov/making_things_done_app#readme",
+  "devDependencies": {
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "html-loader": "^0.5.5",
+    "image-webpack-loader": "^6.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
+  },
+  "dependencies": {}
+}
