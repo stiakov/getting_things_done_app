@@ -22,9 +22,9 @@ There are two options to load this App.
 
 ## Dev Team
 
-Elizabeth Villalejos [![@miss_elliev][1.2]][0] [![alt text][6.2]][1]
+**Elizabeth Villalejos** [![@miss_elliev][1.2]][0] [![alt text][6.2]][1]
 
-Santiago Torres [![@stiakov][1.2]][2] [![alt text][6.2]][3]
+**Santiago Torres** [![@stiakov][1.2]][2] [![alt text][6.2]][3]
 
 
 
