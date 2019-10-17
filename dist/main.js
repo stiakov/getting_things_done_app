@@ -353,6 +353,17 @@ eval("var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/
 
 /***/ }),
 
+/***/ "./src/img/favicon.ico":
+/*!*****************************!*\
+  !*** ./src/img/favicon.ico ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("module.exports = __webpack_require__.p + [\"\",\"img/favicon.ico\"];\n\n//# sourceURL=webpack:///./src/img/favicon.ico?");
+
+/***/ }),
+
 /***/ "./src/img/sub/background.jpg":
 /*!************************************!*\
   !*** ./src/img/sub/background.jpg ***!
@@ -372,7 +383,19 @@ eval("module.exports = __webpack_require__.p + [\"\",\"img/sub/background.jpg\"]
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../semantic/dist/semantic.js */ \"./semantic/dist/semantic.js\");\n/* harmony import */ var _semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../semantic/dist/semantic.css */ \"./semantic/dist/semantic.css\");\n/* harmony import */ var _semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _src_css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../src/css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _src_css_style_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_src_css_style_css__WEBPACK_IMPORTED_MODULE_2__);\n\n\n\n\nconst a = document.getElementById('cont');\na.innerText = 'MY DIV';\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _js_env__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./js/env */ \"./src/js/env.js\");\n/* harmony import */ var _semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../semantic/dist/semantic.js */ \"./semantic/dist/semantic.js\");\n/* harmony import */ var _semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_semantic_dist_semantic_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../semantic/dist/semantic.css */ \"./semantic/dist/semantic.css\");\n/* harmony import */ var _semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_semantic_dist_semantic_css__WEBPACK_IMPORTED_MODULE_2__);\n/* harmony import */ var _src_css_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../src/css/style.css */ \"./src/css/style.css\");\n/* harmony import */ var _src_css_style_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_src_css_style_css__WEBPACK_IMPORTED_MODULE_3__);\n\n\n\n\n\nconst todoItem = (id, title, description, dueDate, priority) => {\n  return {id, todo: { title, description, dueDate, priority } };\n};\n\nconst ProjectManager = {\n  newProject: (name, tasks = {}) => {\n    return { name, tasks };\n    },\n  addToProject: (project, item) => project.tasks[item.id] = item.todo\n};\n\n\n//# sourceURL=webpack:///./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/js/env.js":
+/*!***********************!*\
+  !*** ./src/js/env.js ***!
+  \***********************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _img_favicon_ico__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../img/favicon.ico */ \"./src/img/favicon.ico\");\n/* harmony import */ var _img_favicon_ico__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_img_favicon_ico__WEBPACK_IMPORTED_MODULE_0__);\n\n\nconst setup = {\n  setFavicon: (() => {\n    const setFav = document.getElementById('favicon');\n    setFav.href = _img_favicon_ico__WEBPACK_IMPORTED_MODULE_0___default.a;\n  })(),\n};\n\nconst env = {};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (env);\n\n\n//# sourceURL=webpack:///./src/js/env.js?");
 
 /***/ })
 

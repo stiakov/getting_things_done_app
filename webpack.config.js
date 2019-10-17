@@ -28,15 +28,13 @@ module.exports = {
           use: ['style-loader', 'css-loader']
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif)$/,
+          test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
           use: [
             {
               loader: 'file-loader',
               options: {
                 name: '[path][name].[ext]',
-                outputPath: file => {
-                  return file.split('src/');
-                }
+                outputPath: file => file.split('src/')
               }
             }
           ]
@@ -71,5 +69,4 @@ module.exports = {
         }
       ]
     }
-}
-;
+};
