@@ -12,35 +12,51 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/,
         use: [
-          'file-loader',
           {
-            loader: 'image-webpack-loader',
+            loader: 'file-loader',
             options: {
-              bypassOnDebug: true, // webpack@1.x
-              disable: true, // webpack@2.x and newer
-            },
-          },
-        ],
+              name: '[path][name].[ext]',
+              outputPath: file => {
+                let path = file.split('src/');
+                return path;
+              }
+            }
+          }
+        ]
       },
       {
         test: /\.html$/,
-        use: [{
-          loader: 'html-loader',
-          options: {
-            minimize: true,
-            removeComments: false,
-            collapseWhitespace: false
+        use: [
+          {
+            loader: 'html-loader',
+            options: {
+              minimize: true,
+              removeComments: false,
+              collapseWhitespace: false
+            }
           }
-        }],
+        ]
+      },
+      {
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[path][name].[ext]',
+              outputPath: file => {
+                let path = file.split('src/');
+                return path;
+              }
+            }
+          }
+        ]
       }
-    ],
-  },
+    ]
+  }
 };
