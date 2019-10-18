@@ -2,6 +2,10 @@
   margin-top: 2em;
 }
 
+.extra-space {
+  margin-top: 1em !important;
+}
+
 .project-container {
   min-width: 33% !important;
   max-width: 33% !important;
