@@ -59,7 +59,10 @@ const cards = {
     let counter = 0;
     const nestedContainer = Object.assign(document.createElement('div'),  { className: 'ui basic segments' });
     for (let i = 0; i < 3; i += 1) {
-      const segment = Object.assign(document.createElement('div'),  { className: 'ui segment' }, {innerText: `Task ${counter += 1}`});
+      const segment = Object.assign(document.createElement('div'),
+        { className: 'ui segment' },
+        {innerText: `Task ${counter += 1}`}
+      );
       nestedContainer.appendChild(segment);
     }
     return nestedContainer;
