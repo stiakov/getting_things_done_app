@@ -7,8 +7,13 @@ import './css/style.css';
 
 const todoItem = (id, title, description, dueDate, priority = 0, status = false) => {
   return {
-    id, todo: {
-      title, description, dueDate, priority, status
+    id,
+    todo: {
+      title,
+      description,
+      dueDate,
+      priority,
+      status
     }
   };
 };
