@@ -1,5 +1,5 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // mode: 'development',
@@ -59,8 +59,8 @@ module.exports = {
               loader: 'file-loader',
               options: {
                 name: '[path][name].[ext]',
-                outputPath: file => {
-                  let path = file.split('src/');
+                outputPath: (file) => {
+                  const path = file.split('src/');
                   return path;
                 }
               }

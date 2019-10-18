@@ -1,14 +1,10 @@
-import fav from '../img/favicon.ico';
 import { compareAsc, format } from 'date-fns';
+import fav from '../img/favicon.ico';
 
 const tag = {
-  getMainContainer: () => {
-    return document.getElementById('main-container');
-  },
+  getMainContainer: () => document.getElementById('main-container'),
 
-  getColContainer: () => {
-    return document.createElement('div');
-  }
+  getColContainer: () => document.createElement('div')
 };
 
 const createColumn = () => {
@@ -16,7 +12,7 @@ const createColumn = () => {
   const col = Object.assign(
     document.createElement('div'),
     { className: 'column' },
-    { id: 'col' + (counter + 1) }
+    { id: `col${counter + 1}` }
   );
   tag.getColContainer().appendChild(col);
 };
@@ -44,7 +40,6 @@ const setup = {
 const cards = {
   layoutCardColumns: (() => {
     const cols = document.getElementsByClassName('column');
-    console.log(cols);
     createColumn();
     for (const item in cols) {
       const card = Object.assign(document.createElement('div'), {
