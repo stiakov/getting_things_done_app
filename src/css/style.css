@@ -1,3 +1,14 @@
 #main-container {
   margin-top: 2em;
 }
+
+.project-container {
+  min-width: 33% !important;
+  max-width: 33% !important;
+}
+
+@media only screen and (max-width: 768px) {
+  .project-container {
+    min-width: 100% !important;
+  }
+}

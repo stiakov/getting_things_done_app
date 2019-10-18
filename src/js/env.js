@@ -7,19 +7,9 @@ const tag = {
   getColContainer: () => document.getElementById('colContainer')
 };
 
-let counter = 1;
-const createColumn = () => {
-  const col = Object.assign(
-    document.createElement('div'),
-    { className: 'column' },
-    { id: `col${counter}` }
-  );
-  counter += 1;
-  tag.getColContainer().appendChild(col);
-  cards.layoutCardColumns(col);
-};
-
 const setup = {
+  counter: 1,
+
   setFavicon: () => {
     const setFav = document.getElementById('favicon');
     setFav.href = fav;
@@ -32,39 +22,65 @@ const setup = {
 
   setLayout: () => {
     const colContainer = document.createElement('div');
-    Object.assign(colContainer, { className: 'ui equal width grid' }, { id: 'colContainer' });
+    Object.assign(colContainer, { className: 'ui equal width centered grid' }, { id: 'colContainer' });
     tag.getMainContainer().appendChild(colContainer);
-    createColumn();
+    column.createColumn();
   }
 };
 
-const cards = {
-  layoutCardColumns: (column) => {
-    const segmentContainer = Object.assign(document.createElement('div'),  { className: 'ui segments' });
-    const segment = Object.assign(document.createElement('div'),  { className: 'ui segment' });
-    segmentContainer.appendChild(segment);
+const segmentGen = {
+  nestedSegments: () => {
+    let tasks = ['Setup repository', 'Update readme.md', 'Commit your changes'];
+    const nestedContainer = Object.assign(document.createElement('div'),  { className: 'ui basic segments' });
+    tasks.forEach((item) => {
+      const segment = Object.assign(document.createElement('div'),
+        { className: 'ui segment' },
+        { innerText: item }
+      );
+      nestedContainer.appendChild(segment);
+    });
 
-    const content = Object.assign(document.createElement('div'), { className: 'content' });
-    const header = Object.assign(
-      document.createElement('div'),
-      { className: 'header' },
-      { innerText: 'Project Name' }
-    );
-    const addButton = document.createElement('div');
-    Object.assign(addButton,
-      { className: 'ui green attached center aligned button' },
-      { innerText: 'Add task' }
-    );
+    return nestedContainer;
+  }
+};
 
-    addButton.addEventListener('click', () => cards.loadModal());
-    segment.appendChild(content);
-    content.appendChild(header);
-    segmentContainer.appendChild(cards.nestedSegments());
-    segmentContainer.appendChild(addButton);
-    column.appendChild(segmentContainer);
-  },
+const modal = {
+    formTask: () => {
+      const fields = [
+        {
+          name: 'title',
+          type: 'text',
+          placeholder: 'Concise title',
+          class: ''
+        },
+        {
+          name: 'description',
+          type: 'text',
+          placeholder: 'Short description',
+          class: ''
+        },
+        {
+          name: 'dueDate',
+          type: 'date',
+          placeholder: 'Due Date',
+          class: ''
+        },
+        {
+          name: 'priority',
+          type: 'checkbox',
+          placeholder: 'mark this if it\'s Important?',
+          class: ''
+        },
+      ];
 
-  loadModal: () => {
+      fields.forEach((input) => {
+
+      });
+    },
+    newTask: () => {
+
+    },
+    loadModal: () => {
     const modal =  document.createElement('div');
     modal.className = 'ui dimmer modals page transition visible active';
 
@@ -78,20 +94,47 @@ const cards = {
     grid.appendChild(formContainer);
     modal.appendChild(grid);
   },
+}
 
-  nestedSegments: () => {
-    let counter = 0;
-    const nestedContainer = Object.assign(document.createElement('div'),  { className: 'ui basic segments' });
-    for (let i = 0; i < 3; i += 1) {
-      const segment = Object.assign(document.createElement('div'),
-        { className: 'ui segment' },
-        {innerText: `Task ${counter += 1}`}
-      );
-      nestedContainer.appendChild(segment);
-    }
-    return nestedContainer;
-  }
+const column = {
+  createColumn: () => {
+    const col = Object.assign(
+      document.createElement('div'),
+      { className: 'column project-container' },
+      { id: `col${setup.counter}` }
+    );
+    setup.counter += 1;
+    tag.getColContainer().appendChild(col);
+    column.setProjSegment(col);
+  },
+
+  setProjSegment: (column) => {
+    const segmentContainer = Object.assign(document.createElement('div'),  { className: 'ui segments' });
+    const segment = Object.assign(document.createElement('div'),  { className: 'ui segment' });
+    segmentContainer.appendChild(segment);
+
+    const content = Object.assign(document.createElement('div'), { className: 'content' });
+    const header = Object.assign(
+      document.createElement('h2'),
+      { className: 'header' },
+      { innerText: 'Super-secret project' }
+    );
+    const addButton = document.createElement('div');
+    Object.assign(addButton,
+      { className: 'ui green attached center aligned button' },
+      { innerText: 'Add task' }
+    );
+
+    addButton.addEventListener('click', () => column.loadModal());
+    segment.appendChild(content);
+    content.appendChild(header);
+    segmentContainer.appendChild(segmentGen.nestedSegments());
+    segmentContainer.appendChild(addButton);
+    column.appendChild(segmentContainer);
+  },
+
 };
+
 const init = () => {
   setup.setFavicon();
   setup.setLayout();
