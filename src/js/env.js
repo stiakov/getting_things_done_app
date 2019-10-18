@@ -50,11 +50,35 @@ const cards = {
       { className: 'header' },
       { innerText: 'Project Name' }
     );
+    const addButton = document.createElement('div');
+    Object.assign(addButton,
+      { className: 'ui green attached center aligned button' },
+      { innerText: 'Add task' }
+    );
+
+    addButton.addEventListener('click', () => cards.loadModal());
     segment.appendChild(content);
     content.appendChild(header);
     segmentContainer.appendChild(cards.nestedSegments());
+    segmentContainer.appendChild(addButton);
     column.appendChild(segmentContainer);
   },
+
+  loadModal: () => {
+    const modal =  document.createElement('div');
+    modal.className = 'ui dimmer modals page transition visible active';
+
+    tag.getMainContainer().appendChild(modal);
+
+    const grid = document.createElement('div');
+    grid.className = 'ui centered aligned grid';
+    grid.style.height = '100%';
+
+    const formContainer = document.createElement('div');
+    grid.appendChild(formContainer);
+    modal.appendChild(grid);
+  },
+
   nestedSegments: () => {
     let counter = 0;
     const nestedContainer = Object.assign(document.createElement('div'),  { className: 'ui basic segments' });
