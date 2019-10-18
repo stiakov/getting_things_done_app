@@ -7,15 +7,15 @@ import './css/style.css';
 
 const todoItem = (id, title, description, dueDate, priority = 0, status = false) => {
   return {
-    id, todo: { title, description, dueDate, priority, status }
+    id, todo: {
+      title, description, dueDate, priority, status
+    }
   };
 };
 
 const ProjectManager = {
-  newProject: (name, tasks = {}) => {
-    return { name, tasks };
-  },
+  newProject: (name, tasks = {}) => ({ name, tasks }),
   addToProject: (project, item) => {
-    project.tasks[item.id] = item.todo
+    project.tasks[item.id] = item.todo;
   }
 };
