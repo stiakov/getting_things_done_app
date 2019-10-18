@@ -1,5 +1,5 @@
-import fav from '../img/favicon.ico'
-import {compareAsc, format} from 'date-fns'
+import fav from '../img/favicon.ico';
+import { compareAsc, format } from 'date-fns';
 
 const tag = {
   getMainContainer: () => {
@@ -8,12 +8,16 @@ const tag = {
 
   getColContainer: () => {
     return document.createElement('div');
-  },
+  }
 };
 
 const createColumn = () => {
   const counter = 1;
-  const col = Object.assign(document.createElement('div'), { className: 'column' }, { id: 'col' + ( counter + 1) });
+  const col = Object.assign(
+    document.createElement('div'),
+    { className: 'column' },
+    { id: 'col' + (counter + 1) }
+  );
   tag.getColContainer().appendChild(col);
 };
 
@@ -31,25 +35,35 @@ const setup = {
   setLayout: (() => {
     const colContainer = document.createElement('div');
     colContainer.className = 'ui three columns grid container';
+    const main = tag.getMainContainer();
+    main.appendChild(colContainer);
     createColumn();
-  })(),
+  })()
 };
 
 const cards = {
-   layoutCardColumns: (() => {
-     const cols = document.getElementsByClassName('column');
-       console.log(cols);
-     for (const item in cols) {
-       const card = Object.assign(document.createElement('div'), { className: 'ui card' });
-       const content = Object.assign(document.createElement('div'), { className: 'content' });
-       const header = Object.assign(document.createElement('div'), { className: 'header' }, { content: 'Task Example'});
-       card.appendChild(content);
-       content.appendChild(header);
-       tag.getColContainer().appendChild(card);
-     }
-
-   })(),
-
+  layoutCardColumns: (() => {
+    const cols = document.getElementsByClassName('column');
+    console.log(cols);
+    createColumn();
+    for (const item in cols) {
+      const card = Object.assign(document.createElement('div'), {
+        className: 'ui card'
+      });
+      const content = Object.assign(document.createElement('div'), {
+        className: 'content'
+      });
+      const header = Object.assign(
+        document.createElement('div'),
+        { className: 'header' },
+        { content: 'Task Example' }
+      );
+      card.appendChild(content);
+      content.appendChild(header);
+      const a = tag.getMainContainer();
+      a.appendChild(card);
+    }
+  })()
 };
 
 const env = {};
