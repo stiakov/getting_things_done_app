@@ -32,7 +32,7 @@ const setup = {
 
   setLayout: () => {
     const colContainer = document.createElement('div');
-    Object.assign(colContainer, { className: 'ui width centered grid' }, { id: 'colContainer' });
+    Object.assign(colContainer, { className: 'ui equal width grid' }, { id: 'colContainer' });
     tag.getMainContainer().appendChild(colContainer);
     createColumn();
   }
@@ -40,17 +40,29 @@ const setup = {
 
 const cards = {
   layoutCardColumns: (column) => {
+    const segmentContainer = Object.assign(document.createElement('div'),  { className: 'ui segments' });
+    const segment = Object.assign(document.createElement('div'),  { className: 'ui segment' });
+    segmentContainer.appendChild(segment);
 
-    const card = Object.assign(document.createElement('div'),  { className: 'ui card' });
     const content = Object.assign(document.createElement('div'), { className: 'content' });
     const header = Object.assign(
       document.createElement('div'),
       { className: 'header' },
-      { innerText: 'Task Example' }
+      { innerText: 'Project Name' }
     );
-    card.appendChild(content);
+    segment.appendChild(content);
     content.appendChild(header);
-    column.appendChild(card);
+    segmentContainer.appendChild(cards.nestedSegments());
+    column.appendChild(segmentContainer);
+  },
+  nestedSegments: () => {
+    let counter = 0;
+    const nestedContainer = Object.assign(document.createElement('div'),  { className: 'ui basic segments' });
+    for (let i = 0; i < 3; i += 1) {
+      const segment = Object.assign(document.createElement('div'),  { className: 'ui segment' }, {innerText: `Task ${counter += 1}`});
+      nestedContainer.appendChild(segment);
+    }
+    return nestedContainer;
   }
 };
 const init = () => {
