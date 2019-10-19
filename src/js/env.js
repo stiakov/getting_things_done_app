@@ -36,7 +36,11 @@ const setup = {
 
 const segmentGen = {
   nestedSegments: () => {
-    let tasks = ['Setup repository', 'Update readme.md', 'Commit your changes'];
+    const tasks = [
+      'Setup repository',
+      'Update readme.md',
+      'Commit your changes'
+    ];
     const nestedContainer = Object.assign(document.createElement('div'), {
       className: 'ui basic segments'
     });
