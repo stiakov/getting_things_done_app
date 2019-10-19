@@ -1,5 +1,15 @@
+body {
+  background: url('https://images.unsplash.com/photo-1522199670076-2852f80289c3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1052&q=80');
+  background-size: cover;
+}
+
 #main-container {
   margin-top: 2em;
+}
+
+.btn-style {
+  background: rgba(255, 134, 134, 1.0) !important;
+  color: white !important;
 }
 
 .extra-space {

@@ -1,4 +1,4 @@
-import { compareAsc, format } from 'date-fns';
+import { format } from 'date-fns';
 import fav from '../img/favicon.ico';
 
 const tag = {
@@ -71,9 +71,9 @@ const formTask = () => {
       placeholder: 'Due Date'
     },
     {
-      name: 'Priority',
+      name: 'High priority?',
       type: 'checkbox',
-      placeholder: "mark this if it's Important"
+      placeholder: ''
     }
   ];
 
@@ -102,7 +102,7 @@ const formTask = () => {
   });
   const btn = Object.assign(
     document.createElement('button'),
-    { className: 'ui green button' },
+    { className: 'ui button btn-style' },
     { innerText: 'Submit task' }
   );
   tag.getFormContainer().appendChild(btn);
@@ -162,7 +162,7 @@ const column = {
     const addButton = document.createElement('div');
     Object.assign(
       addButton,
-      { className: 'ui green attached center aligned button' },
+      { className: 'ui attached center aligned button btn-style' },
       { innerText: 'Add task' }
     );
 
