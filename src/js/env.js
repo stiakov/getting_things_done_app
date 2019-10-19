@@ -1,6 +1,4 @@
-import {
-  format
-} from 'date-fns';
+import { format } from 'date-fns';
 import fav from '../img/favicon.ico';
 
 const tag = {
@@ -27,11 +25,9 @@ const setup = {
   setLayout: () => {
     const colContainer = document.createElement('div');
     Object.assign(
-      colContainer, {
-        className: 'ui equal width centered grid'
-      }, {
-        id: 'colContainer'
-      }
+      colContainer,
+      { className: 'ui equal width centered grid' },
+      { id: 'colContainer' }
     );
     tag.getMainContainer().appendChild(colContainer);
     column.createColumn();
@@ -44,13 +40,11 @@ const segmentGen = {
     const nestedContainer = Object.assign(document.createElement('div'), {
       className: 'ui basic segments'
     });
-    tasks.forEach(item => {
+    tasks.forEach((item) => {
       const segment = Object.assign(
-        document.createElement('div'), {
-          className: 'ui segment'
-        }, {
-          innerText: item
-        }
+        document.createElement('div'),
+        { className: 'ui segment' },
+        { innerText: item }
       );
       nestedContainer.appendChild(segment);
     });
@@ -60,7 +54,8 @@ const segmentGen = {
 };
 
 const formTask = () => {
-  const fields = [{
+  const fields = [
+    {
       name: 'Title',
       type: 'text',
       placeholder: 'Concise title'
@@ -85,20 +80,17 @@ const formTask = () => {
   fields.forEach((input) => {
     const typeChecker = input.type === 'checkbox' ? 'span' : 'label';
     const label = Object.assign(
-      document.createElement(typeChecker), {
+      document.createElement(typeChecker),
+      {
         innerText: input.name
-      }, {
-        className: 'ui left aligned tiny header'
-      }
+      },
+      { className: 'ui left aligned tiny header' }
     );
     const nameField = Object.assign(
-      document.createElement('input'), {
-        type: input.type
-      }, {
-        placeholder: input.placeholder
-      }, {
-        className: 'field'
-      }
+      document.createElement('input'),
+      { type: input.type },
+      { placeholder: input.placeholder },
+      { className: 'field' }
     );
     if (typeChecker === 'span') {
       label.appendChild(nameField);
@@ -109,11 +101,9 @@ const formTask = () => {
     }
   });
   const btn = Object.assign(
-    document.createElement('button'), {
-      className: 'ui button btn-style'
-    }, {
-      innerText: 'Submit task'
-    }
+    document.createElement('button'),
+    { className: 'ui button btn-style' },
+    { innerText: 'Submit task' }
   );
   tag.getFormContainer().appendChild(btn);
 };
@@ -133,11 +123,7 @@ const modal = {
 
     const formContainer = document.createElement('div');
     card.appendChild(formContainer);
-    Object.assign(formContainer, {
-      id: 'test'
-    }, {
-      className: 'ui form'
-    });
+    Object.assign(formContainer, { id: 'test' }, { className: 'ui form' });
     grid.appendChild(card);
     modalCont.appendChild(grid);
     formTask();
@@ -147,18 +133,16 @@ const modal = {
 const column = {
   createColumn: () => {
     const col = Object.assign(
-      document.createElement('div'), {
-        className: 'column project-container'
-      }, {
-        id: `col${setup.counter}`
-      }
+      document.createElement('div'),
+      { className: 'column project-container' },
+      { id: `col${setup.counter}` }
     );
     setup.counter += 1;
     tag.getColContainer().appendChild(col);
     column.setProjSegment(col);
   },
 
-  setProjSegment: column => {
+  setProjSegment: (column) => {
     const segmentContainer = Object.assign(document.createElement('div'), {
       className: 'ui segments'
     });
@@ -171,19 +155,15 @@ const column = {
       className: 'content ui form'
     });
     const header = Object.assign(
-      document.createElement('h2'), {
-        className: 'header'
-      }, {
-        innerText: 'Super-secret project'
-      }
+      document.createElement('h2'),
+      { className: 'header' },
+      { innerText: 'Super-secret project' }
     );
     const addButton = document.createElement('div');
     Object.assign(
-      addButton, {
-        className: 'ui attached center aligned button btn-style'
-      }, {
-        innerText: 'Add task'
-      }
+      addButton,
+      { className: 'ui attached center aligned button btn-style' },
+      { innerText: 'Add task' }
     );
 
     addButton.addEventListener('click', () => modal.loadModal());
@@ -201,25 +181,21 @@ const addCard = {
       className: 'ui card'
     });
     const cardHeader = Object.assign(
-      document.createElement('div'), {
-        className: 'ui medium header extra-space'
-      }, {
-        innerText: 'Write your task'
-      }
+      document.createElement('div'),
+      { className: 'ui medium header extra-space' },
+      { innerText: 'Write your task' }
     );
     const cardSub = Object.assign(
-      document.createElement('div'), {
-        className: 'meta'
-      }, {
-        innerText: 'Project demo'
-      }
+      document.createElement('div'),
+      { className: 'meta' },
+      { innerText: 'Project demo' }
     );
     const cardContent = Object.assign(
-      document.createElement('div'), {
+      document.createElement('div'),
+      {
         className: 'content ui form'
-      }, {
-        id: 'cardCont'
-      }
+      },
+      { id: 'cardCont' }
     );
     mainCard.appendChild(cardHeader);
     mainCard.appendChild(cardSub);
