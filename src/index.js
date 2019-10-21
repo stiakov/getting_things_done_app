@@ -4,8 +4,14 @@ import '../semantic/dist/semantic';
 import '../semantic/dist/semantic.css';
 import './css/style.css';
 
-
-const todoItem = (id, title, description, dueDate, priority = 0, status = false) => {
+const todoItem = (
+  id,
+  title,
+  description,
+  dueDate,
+  priority = 0,
+  status = false
+) => {
   return {
     id,
     todo: {

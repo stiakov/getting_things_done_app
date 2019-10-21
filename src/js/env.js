@@ -1,5 +1,7 @@
 import { format } from 'date-fns';
 import fav from '../img/favicon.ico';
+import systemManager from './starter';
+const sm = systemManager;
 
 const tag = {
   getMainContainer: () => document.getElementById('main-container'),
@@ -62,21 +64,25 @@ const formTask = () => {
     {
       name: 'Title',
       type: 'text',
+      id: 'task-title',
       placeholder: 'Concise title'
     },
     {
       name: 'Description',
       type: 'text',
+      id: 'task-description',
       placeholder: 'Short description'
     },
     {
       name: 'Due date',
       type: 'date',
+      id: 'task-date',
       placeholder: 'Due Date'
     },
     {
       name: 'High priority?',
       type: 'checkbox',
+      id: 'task-priority',
       placeholder: ''
     }
   ];
@@ -94,7 +100,8 @@ const formTask = () => {
       document.createElement('input'),
       { type: input.type },
       { placeholder: input.placeholder },
-      { className: 'field' }
+      { className: 'field' },
+      { id: input.id }
     );
     if (typeChecker === 'span') {
       label.appendChild(nameField);
@@ -107,13 +114,31 @@ const formTask = () => {
   const btn = Object.assign(
     document.createElement('button'),
     { className: 'ui button btn-style' },
-    { innerText: 'Submit task' }
+    { innerText: 'Submit task' },
+    { id: 'submit-task' }
   );
+  btn.addEventListener('click', () => task.addTask());
   tag.getFormContainer().appendChild(btn);
 };
 
+const task = {
+  addTask: () => {
+    const task_title = document.getElementById('task-title').value;
+    const task_description = document.getElementById('task-description').value;
+    const task_date = document.getElementById('task-date').value;
+    const task_priority = document.getElementById('task-priority').checked;
+    const itm = sm.todoItem(
+      2,
+      task_title,
+      task_description,
+      task_date,
+      task_priority
+    );
+    console.log('objeto: ' + JSON.stringify(itm));
+  }
+};
+
 const modal = {
-  newTask: () => {},
   loadModal: () => {
     const modalCont = document.createElement('div');
     modalCont.className = 'ui dimmer modals page transition visible active';
@@ -130,9 +155,41 @@ const modal = {
     Object.assign(formContainer, { id: 'test' }, { className: 'ui form' });
     grid.appendChild(card);
     modalCont.appendChild(grid);
-    formTask();
   }
 };
+
+const formProject = () => {
+  const projectFormContainer = Object.assign(document.createElement('div'), {
+    className: 'ui card'
+  });
+  const projectHeader = Object.assign(
+    document.createElement('div'),
+    { className: 'ui medium header extra-space' },
+    { innerText: 'Create your project' }
+  );
+  const projectForm = Object.assign(document.createElement('div'), {
+    className: 'content ui form'
+  });
+  const projectName = Object.assign(
+    document.createElement('input'),
+    { type: 'text' },
+    { placeholder: 'Name your project' }
+  );
+  const btnProject = Object.assign(
+    document.createElement('button'),
+    { className: 'ui button btn-style' },
+    { innerText: 'Create Project' }
+  );
+
+  tag.getMainContainer().appendChild(projectFormContainer);
+  projectFormContainer.appendChild(projectHeader);
+  projectFormContainer.appendChild(projectForm);
+  projectForm.appendChild(projectName);
+  projectForm.appendChild(btnProject);
+};
+
+const btn_navbar = document.getElementById('btn-project');
+btn_navbar.addEventListener('click', () => formProject());
 
 const column = {
   createColumn: () => {
@@ -163,6 +220,7 @@ const column = {
       { className: 'header' },
       { innerText: 'Super-secret project' }
     );
+    // sm.ProjectManager(header);
     const addButton = document.createElement('div');
     Object.assign(
       addButton,
