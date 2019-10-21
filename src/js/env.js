@@ -173,12 +173,14 @@ const formProject = () => {
   const projectName = Object.assign(
     document.createElement('input'),
     { type: 'text' },
-    { placeholder: 'Name your project' }
+    { placeholder: 'Name your project' },
+    { id: 'project-name' }
   );
   const btnProject = Object.assign(
     document.createElement('button'),
-    { className: 'ui button btn-style' },
-    { innerText: 'Create Project' }
+    { className: 'ui button btn-style extra-space' },
+    { innerText: 'Create Project' },
+    { id: 'btn-createProject' }
   );
 
   tag.getMainContainer().appendChild(projectFormContainer);
@@ -186,8 +188,14 @@ const formProject = () => {
   projectFormContainer.appendChild(projectForm);
   projectForm.appendChild(projectName);
   projectForm.appendChild(btnProject);
-};
 
+  const btn_create = document.getElementById('btn-createProject');
+  btn_create.addEventListener('click', () => {
+    const newProject = document.getElementById('project-name').value;
+    const temp = sm.ProjectManager.newProject(3, newProject);
+    console.log(temp);
+  });
+};
 const btn_navbar = document.getElementById('btn-project');
 btn_navbar.addEventListener('click', () => formProject());
 
