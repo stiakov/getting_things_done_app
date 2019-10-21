@@ -152,9 +152,9 @@ const modal = {
 
     const formContainer = document.createElement('div');
     card.appendChild(formContainer);
-    Object.assign(formContainer, { id: 'test' }, { className: 'ui form' });
     grid.appendChild(card);
     modalCont.appendChild(grid);
+    formTask();
   }
 };
 
