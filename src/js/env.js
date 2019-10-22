@@ -44,6 +44,7 @@ export const setup = {
       { className: 'ui equal width centered grid' },
       { id: 'colContainer' }
     );
+    modal.userGuide();
     tag.getMainContainer().appendChild(colContainer);
   }
 };
@@ -90,6 +91,23 @@ export const modal = {
     modalCont.appendChild(grid);
 
     modal.removeModal();
+  },
+  userGuide: () => {
+    const modalGuide = document.createElement('div');
+    modalGuide.className = 'ui dimmer modals page transition visible active';
+    modalGuide.id = 'modalGuide';
+    modalGuide.style.marginTop = '50px';
+    const arrowCont = document.createElement('div');
+    arrowCont.id = 'arrow-text';
+    modalGuide.appendChild(arrowCont);
+
+    tag.getMainContainer().appendChild(modalGuide);
+    addEventListener('keydown', () => {
+      tag.getMainContainer().removeChild(modalGuide);
+    });
+    addEventListener('click', () => {
+      tag.getMainContainer().removeChild(modalGuide);
+    });
   }
 };
 

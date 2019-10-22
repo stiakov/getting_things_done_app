@@ -21,6 +21,21 @@ body {
   max-width: 33% !important;
 }
 
+#arrow-text {
+  background: url("../img/guide.gif");
+  background-size: cover;
+  float: right;
+  max-height: 270px;
+  max-width: 270px;
+  min-height: 145px;
+  min-width: 145px;
+  transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+}
+
 @media only screen and (max-width: 768px) {
   .project-container {
     min-width: 100% !important;
