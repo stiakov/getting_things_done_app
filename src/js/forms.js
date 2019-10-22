@@ -2,6 +2,7 @@ import * as Env from './env';
 import systemManager from './logic';
 import {setup} from './env';
 import {column} from './projectLayout';
+import {tag} from "./env";
 
 
 const form = {
@@ -95,12 +96,19 @@ const form = {
     projectFormContainer.appendChild(projectName);
     projectFormContainer.appendChild(btnProject);
 
-    btnProject.addEventListener('click', () => {
+    const buttonBehaviour = () => {
       const projectTitle = document.getElementById('project-name').value;
       const temp = systemManager.ProjectManager.newProject(setup.counterProj, projectTitle);
       form.closeForm();
       localStorage.setItem(setup.counterProj, JSON.stringify(temp));
       column.createColumn();
+    };
+
+    btnProject.addEventListener('click', () => buttonBehaviour());
+    projectName.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        buttonBehaviour();
+      }
     });
   }
 };

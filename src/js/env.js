@@ -44,7 +44,7 @@ export const setup = {
       { className: 'ui equal width centered grid' },
       { id: 'colContainer' }
     );
-    modal.userGuide();
+    if (localStorage.length < 1) modal.userGuide();
     tag.getMainContainer().appendChild(colContainer);
   }
 };
@@ -73,6 +73,7 @@ export const modal = {
         tag.getMainContainer().removeChild(mod);
       }
     });
+    // document.addEventListener('click', () =>  tag.getMainContainer().removeChild(mod));
   },
   loadModal: (tempcard) => {
     const modalCont = document.createElement('div');
