@@ -10,7 +10,7 @@ const systemManager = {
   },
 
   ProjectManager: {
-    newProject: (id, name, tasks = {}) => ({id, name, tasks}),
+    newProject: (id, name, tasks = []) => ({id, name, tasks}),
     addToProject: (project, item) => {
       project.tasks[item.id] = item.todo;
     }

@@ -44,8 +44,21 @@ export const setup = {
       { className: 'ui equal width centered grid' },
       { id: 'colContainer' }
     );
-    if (localStorage.length < 1) modal.userGuide();
     tag.getMainContainer().appendChild(colContainer);
+    setup.getLocalSt();
+  },
+  getLocalSt: () => {
+    if (localStorage.length < 1) {
+      modal.userGuide();
+    } else {
+      const projects = [];
+      const keys = Object.keys(localStorage);
+
+      keys.forEach((key) => {
+        const proj = JSON.parse(localStorage.getItem(key));
+        column.createColumn('localSt', proj);
+      });
+    }
   }
 };
 

@@ -4,21 +4,30 @@ import {setup} from "./env"
 import {modal} from "./env"
 
 export const segmentGen = {
-  addTasktoProject: (project, task) => {},
-  nestedSegments: () => {
-    const tasks = [
-      'Setup repository',
-      'Update readme.md',
-      'Commit your changes'
-    ];
+  addTasktoProject: (project, task) => {
+  },
+  emptySegments: () => {
+    const nestedContainer = Object.assign(document.createElement('div'), {
+      className: 'ui basic segments'
+    });
+    const segment = Object.assign(
+      document.createElement('div'),
+      {className: 'ui segment'},
+      {innerText: item}
+    );
+    nestedContainer.appendChild(segment);
+    return nestedContainer;
+  },
+  nestedSegments: (tasks) => {
+
     const nestedContainer = Object.assign(document.createElement('div'), {
       className: 'ui basic segments'
     });
     tasks.forEach((item) => {
       const segment = Object.assign(
         document.createElement('div'),
-        { className: 'ui segment' },
-        { innerText: item }
+        {className: 'ui segment'},
+        {innerText: JSON.stringify(item)}
       );
       nestedContainer.appendChild(segment);
     });
@@ -28,17 +37,23 @@ export const segmentGen = {
 };
 
 export const column = {
-  createColumn: () => {
-    const col = Object.assign(
+  createColumn: (from, project) => {
+    const col =  Object.assign(
       document.createElement('div'),
       { className: 'column project-container' },
-      { id: `col-${setup.counterProj}` }
+      { id: `col-${project.id }`}
     );
+    if (from === 'newProjButton') {
+      Object.assign(col, { id: `col-${setup.counterProj}` });
+    } else {
+      Object.assign(col, { id: `col-${project.id}` });
+    }
     tag.getColContainer().appendChild(col);
-    column.setProjSegment(col);
+    column.setProjSegment(from, col, project);
   },
 
-  setProjSegment: (column) => {
+  setProjSegment: (from, column, objProject) => {
+
     const segmentContainer = Object.assign(document.createElement('div'), {
       className: 'ui segments'
     });
@@ -51,23 +66,27 @@ export const column = {
       className: 'content ui form'
     });
 
-    let storage = localStorage.getItem(setup.counterProj);
-    const projectName =
-      storage === null ? 'Super secret project' : JSON.parse(storage).name;
-
     const header = Object.assign(
       document.createElement('h2'),
-      { className: 'header' },
-      { innerText: projectName }
+      {className: 'header'},
     );
 
     const addButton = document.createElement('div');
     Object.assign(
       addButton,
-      { className: 'ui attached center aligned button btn-style' },
-      { innerText: 'Add task' },
-      {id: `newTaskBtn-${setup.counterProj}` }
+      {className: 'ui attached center aligned button btn-style'},
+      {innerText: 'Add task'},
     );
+
+    if (from === 'newProjButton') {
+      header.innerText = objProject;
+      addButton.id = `newTaskBtn-${setup.counterProj}`;
+    } else {
+      header.innerText = objProject.name;
+      addButton.id = `newTaskBtn-${objProject.id}`;
+    }
+
+
 
     addButton.addEventListener('click', () => {
       const taskCard = addCard.createCard(
@@ -79,7 +98,10 @@ export const column = {
     });
     segment.appendChild(content);
     content.appendChild(header);
-    segmentContainer.appendChild(segmentGen.nestedSegments());
+    if (from === 'localSt') {
+      segmentContainer.appendChild(segmentGen.nestedSegments(Object.values(objProject.tasks)));
+
+    }
     segmentContainer.appendChild(addButton);
     column.appendChild(segmentContainer);
     setup.counterProj += 1;
@@ -93,20 +115,20 @@ export const addCard = {
     });
     const cardHeader = Object.assign(
       document.createElement('div'),
-      { className: 'ui medium header extra-space' },
-      { innerText: header }
+      {className: 'ui medium header extra-space'},
+      {innerText: header}
     );
     const cardSub = Object.assign(
       document.createElement('div'),
-      { className: 'meta' },
-      { innerText: sub }
+      {className: 'meta'},
+      {innerText: sub}
     );
     const cardContent = Object.assign(
       document.createElement('div'),
       {
         className: 'content ui form'
       },
-      { id: 'cardCont' }
+      {id: 'cardCont'}
     );
     mainCard.appendChild(cardHeader);
     mainCard.appendChild(cardSub);

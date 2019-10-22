@@ -101,7 +101,7 @@ const form = {
       const temp = systemManager.ProjectManager.newProject(setup.counterProj, projectTitle);
       form.closeForm();
       localStorage.setItem(setup.counterProj, JSON.stringify(temp));
-      column.createColumn();
+      column.createColumn('newProjButton', projectTitle);
     };
 
     btnProject.addEventListener('click', () => buttonBehaviour());
