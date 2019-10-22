@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
 import fav from '../img/favicon.ico';
-import systemManager from './starter';
+import systemManager from './logic';
 const sm = systemManager;
 
 const tag = {
