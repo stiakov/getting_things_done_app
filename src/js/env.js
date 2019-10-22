@@ -37,6 +37,7 @@ const setup = {
 };
 
 const segmentGen = {
+  addTasktoProject: (project, task) => {},
   nestedSegments: () => {
     const tasks = [
       'Setup repository',
@@ -59,6 +60,10 @@ const segmentGen = {
   }
 };
 
+const completedForm = () => {
+  const mod = document.getElementById('modal');
+  mod.parentNode.removeChild(mod);
+};
 const formTask = () => {
   const fields = [
     {
@@ -117,7 +122,10 @@ const formTask = () => {
     { innerText: 'Submit task' },
     { id: 'submit-task' }
   );
-  btn.addEventListener('click', () => task.addTask());
+  btn.addEventListener('click', () => {
+    task.addTask();
+    completedForm();
+  });
   tag.getFormContainer().appendChild(btn);
 };
 
@@ -139,37 +147,37 @@ const task = {
 };
 
 const modal = {
-  loadModal: () => {
+  removeModal: () => {
+    const mod = document.getElementById('modal');
+    document.body.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        tag.getMainContainer().removeChild(mod);
+      }
+    });
+  },
+  loadModal: (tempcard) => {
     const modalCont = document.createElement('div');
     modalCont.className = 'ui dimmer modals page transition visible active';
+    modalCont.id = 'modal';
 
     tag.getMainContainer().appendChild(modalCont);
 
-    const card = addCard.createCard();
+    const card = tempcard;
     const grid = document.createElement('div');
     grid.className = 'ui centered aligned grid';
     grid.style.height = '100%';
-
     const formContainer = document.createElement('div');
     card.appendChild(formContainer);
     grid.appendChild(card);
     modalCont.appendChild(grid);
-    formTask();
+
+    modal.removeModal();
   }
 };
 
 const formProject = () => {
-  const projectFormContainer = Object.assign(document.createElement('div'), {
-    className: 'ui card'
-  });
-  const projectHeader = Object.assign(
-    document.createElement('div'),
-    { className: 'ui medium header extra-space' },
-    { innerText: 'Create your project' }
-  );
-  const projectForm = Object.assign(document.createElement('div'), {
-    className: 'content ui form'
-  });
+  const projectFormContainer = document.createElement('div');
+
   const projectName = Object.assign(
     document.createElement('input'),
     { type: 'text' },
@@ -182,22 +190,24 @@ const formProject = () => {
     { innerText: 'Create Project' },
     { id: 'btn-createProject' }
   );
+  tag.getFormContainer().appendChild(projectFormContainer);
+  projectFormContainer.appendChild(projectName);
+  projectFormContainer.appendChild(btnProject);
 
-  tag.getMainContainer().appendChild(projectFormContainer);
-  projectFormContainer.appendChild(projectHeader);
-  projectFormContainer.appendChild(projectForm);
-  projectForm.appendChild(projectName);
-  projectForm.appendChild(btnProject);
-
-  const btn_create = document.getElementById('btn-createProject');
-  btn_create.addEventListener('click', () => {
+  btnProject.addEventListener('click', () => {
     const newProject = document.getElementById('project-name').value;
     const temp = sm.ProjectManager.newProject(3, newProject);
+    completedForm();
+    // localStorage.setItem(temp);
     console.log(temp);
   });
 };
 const btn_navbar = document.getElementById('btn-project');
-btn_navbar.addEventListener('click', () => formProject());
+btn_navbar.addEventListener('click', () => {
+  const projectCard = addCard.createCard('New Project', 'Start a new project');
+  modal.loadModal(projectCard);
+  formProject();
+});
 
 const column = {
   createColumn: () => {
@@ -236,7 +246,14 @@ const column = {
       { innerText: 'Add task' }
     );
 
-    addButton.addEventListener('click', () => modal.loadModal());
+    addButton.addEventListener('click', () => {
+      const taskCard = addCard.createCard(
+        'Create a new task',
+        'Add a new task here'
+      );
+      modal.loadModal(taskCard);
+      formTask();
+    });
     segment.appendChild(content);
     content.appendChild(header);
     segmentContainer.appendChild(segmentGen.nestedSegments());
@@ -246,19 +263,19 @@ const column = {
 };
 
 const addCard = {
-  createCard: () => {
+  createCard: (header, sub) => {
     const mainCard = Object.assign(document.createElement('div'), {
       className: 'ui card'
     });
     const cardHeader = Object.assign(
       document.createElement('div'),
       { className: 'ui medium header extra-space' },
-      { innerText: 'Write your task' }
+      { innerText: header }
     );
     const cardSub = Object.assign(
       document.createElement('div'),
       { className: 'meta' },
-      { innerText: 'Project demo' }
+      { innerText: sub }
     );
     const cardContent = Object.assign(
       document.createElement('div'),
