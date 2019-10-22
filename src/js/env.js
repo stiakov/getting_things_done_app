@@ -196,10 +196,11 @@ const formProject = () => {
 
   btnProject.addEventListener('click', () => {
     const newProject = document.getElementById('project-name').value;
-    const temp = sm.ProjectManager.newProject(3, newProject);
+    const temp = sm.ProjectManager.newProject(setup.counter, newProject);
     completedForm();
-    // localStorage.setItem(temp);
+    localStorage.setItem(setup.counter, JSON.stringify(temp));
     console.log(temp);
+    column.createColumn();
   });
 };
 const btn_navbar = document.getElementById('btn-project');
@@ -233,12 +234,17 @@ const column = {
     const content = Object.assign(document.createElement('div'), {
       className: 'content ui form'
     });
+
+    let storage = localStorage.getItem(setup.counter - 1);
+    const projectName =
+      storage === null ? 'Super secret project' : JSON.parse(storage).name;
+
     const header = Object.assign(
       document.createElement('h2'),
       { className: 'header' },
-      { innerText: 'Super-secret project' }
+      { innerText: projectName }
     );
-    // sm.ProjectManager(header);
+
     const addButton = document.createElement('div');
     Object.assign(
       addButton,
