@@ -24,6 +24,7 @@ body {
 #arrow-text {
   background: url("../img/guide.gif");
   background-size: cover;
+  margin-right: 70px;
   float: right;
   max-height: 270px;
   max-width: 270px;
