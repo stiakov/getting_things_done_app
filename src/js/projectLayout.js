@@ -38,15 +38,14 @@ export const segmentGen = {
 
 export const column = {
   createColumn: (from, project) => {
-    const col =  Object.assign(
+    const col = Object.assign(
       document.createElement('div'),
-      { className: 'column project-container' },
-      { id: `col-${project.id }`}
+      {className: 'column project-container'},
     );
     if (from === 'newProjButton') {
-      Object.assign(col, { id: `col-${setup.counterProj}` });
+      Object.assign(col, {id: `col-${setup.counterProj}`});
     } else {
-      Object.assign(col, { id: `col-${project.id}` });
+      Object.assign(col, {id: `col-${project.id}`});
     }
     tag.getColContainer().appendChild(col);
     column.setProjSegment(from, col, project);
@@ -78,29 +77,30 @@ export const column = {
       {innerText: 'Add task'},
     );
 
+    const idProj = from === 'newProjButton' ? setup.counterProj : objProject.id;
+    addButton.id = `newTaskBtn-${idProj}`;
+
     if (from === 'newProjButton') {
       header.innerText = objProject;
-      addButton.id = `newTaskBtn-${setup.counterProj}`;
     } else {
       header.innerText = objProject.name;
-      addButton.id = `newTaskBtn-${objProject.id}`;
     }
-
-
 
     addButton.addEventListener('click', () => {
       const taskCard = addCard.createCard(
         'Create a new task',
-        'Add a new task here'
+        'Add a new task here',
+        idProj
       );
       modal.loadModal(taskCard);
       form.newTask();
     });
     segment.appendChild(content);
     content.appendChild(header);
+    console.log('from' + from);
+    console.log('objProject' + objProject);
     if (from === 'localSt') {
       segmentContainer.appendChild(segmentGen.nestedSegments(Object.values(objProject.tasks)));
-
     }
     segmentContainer.appendChild(addButton);
     column.appendChild(segmentContainer);
@@ -109,10 +109,11 @@ export const column = {
 };
 
 export const addCard = {
-  createCard: (header, sub) => {
-    const mainCard = Object.assign(document.createElement('div'), {
-      className: 'ui card'
-    });
+  createCard: (header, sub, idProject) => {
+    const mainCard = Object.assign(document.createElement('div'),
+      { className: 'ui card' },
+      { id: idProject }
+      );
     const cardHeader = Object.assign(
       document.createElement('div'),
       {className: 'ui medium header extra-space'},

@@ -34,7 +34,7 @@ export const setup = {
     const btn_navbar = document.getElementById('btn-project');
 
     btn_navbar.addEventListener('click', () => {
-      const projectCard = addCard.createCard('New Project', 'Start a new project');
+      const projectCard = addCard.createCard('New Project', 'Start a new project', setup.counterProj);
       modal.loadModal(projectCard);
       form.newProject();
     });
@@ -51,11 +51,14 @@ export const setup = {
     if (localStorage.length < 1) {
       modal.userGuide();
     } else {
-      const projects = [];
       const keys = Object.keys(localStorage);
+      setup.counterProj = localStorage.length + 1;
 
+        console.log('----keys' + keys);
       keys.forEach((key) => {
+        console.log('inner key' + key);
         const proj = JSON.parse(localStorage.getItem(key));
+        console.log('getting localSt' + JSON.parse(localStorage.getItem(key)));
         column.createColumn('localSt', proj);
       });
     }
@@ -63,7 +66,7 @@ export const setup = {
 };
 
 export const task = {
-  addTask: (project) => {
+  addTask: (idProject) => {
     const task_title = document.getElementById('task-title').value;
     const task_description = document.getElementById('task-description').value;
     const task_date = document.getElementById('task-date').value;
@@ -74,7 +77,10 @@ export const task = {
       task_date,
       task_priority
     );
-    console.log('objeto: ' + JSON.stringify(itm));
+    const proj = JSON.parse(localStorage.getItem(idProject));
+    proj.tasks.push(itm);
+    localStorage.setItem(idProject, JSON.stringify(proj));
+    console.log('objeto proj: ' + JSON.stringify(proj));
   }
 };
 

@@ -69,12 +69,13 @@ const form = {
       { innerText: 'Submit task' },
       { id: 'submit-task' }
     );
+    Env.tag.getFormContainer().appendChild(btn);
+    const idProj = btn.parentElement.parentElement.id;
     btn.addEventListener('click', (e) => {
       console.log(e);
-      Env.task.addTask();
+      Env.task.addTask(idProj);
       form.closeForm();
     });
-    Env.tag.getFormContainer().appendChild(btn);
   },
 
   newProject: () => {
