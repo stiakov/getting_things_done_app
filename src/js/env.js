@@ -79,13 +79,11 @@ export const task = {
     );
     const proj = JSON.parse(localStorage.getItem(idProject));
     proj.tasks.push(itm);
-
     task.displayTask(idProject, itm);
     localStorage.setItem(idProject, JSON.stringify(proj));
   },
   displayTask: (idProject, item) => {
-    console.log('idProject:' + idProject);
-    const nestedContainer = document.getElementById(`segments-${idProject}`);
+    const nestedContainer = document.getElementById(idProject);
     const segment = Object.assign(
       document.createElement('div'),
       { className: 'ui segment' },
@@ -97,11 +95,12 @@ export const task = {
 
 export const modal = {
   removeModal: () => {
-    const mod = document.getElementById('modal');
+    let mod = document.getElementById('modal');
     document.body.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        tag.getMainContainer().removeChild(mod);
+        if (mod) tag.getMainContainer().removeChild(mod);
       }
+      mod = undefined;
     });
     // document.addEventListener('click', () =>  tag.getMainContainer().removeChild(mod));
   },
@@ -133,10 +132,8 @@ export const modal = {
     modalGuide.appendChild(arrowCont);
 
     tag.getMainContainer().appendChild(modalGuide);
-    addEventListener('keydown', () => {
-      tag.getMainContainer().removeChild(modalGuide);
-    });
-    addEventListener('click', () => {
+
+    modalGuide.addEventListener('click', () => {
       tag.getMainContainer().removeChild(modalGuide);
     });
   }

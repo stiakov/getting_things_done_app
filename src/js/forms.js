@@ -9,7 +9,7 @@ const seg = segmentGen;
 const form = {
   closeForm: () => {
     const mod = document.getElementById('modal');
-    mod.parentElement.removeChild(mod);
+    if (mod) mod.parentElement.removeChild(mod);
   },
 
   newTask: () => {
@@ -70,6 +70,7 @@ const form = {
       { innerText: 'Submit task' },
       { id: 'submit-task' }
     );
+
     Env.tag.getFormContainer().appendChild(btn);
     const idProj = btn.parentElement.parentElement.id;
     btn.addEventListener('click', () => {

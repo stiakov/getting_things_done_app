@@ -143,9 +143,15 @@ export const addCard = {
       },
       { id: 'cardCont' }
     );
+
+    const esc = document.createElement('div');
+    Object.assign(esc, { className: 'meta' }, { innerText: 'or press Escape to exit' });
+
     mainCard.appendChild(cardHeader);
     mainCard.appendChild(cardSub);
     mainCard.appendChild(cardContent);
+    mainCard.appendChild(esc);
+
     return mainCard;
   }
 };
