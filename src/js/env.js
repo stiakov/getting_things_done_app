@@ -87,12 +87,33 @@ export const task = {
   },
   displayTask: (idProject, item) => {
     const nestedContainer = document.getElementById(idProject);
-    const segment = Object.assign(
+    const segmentCont = Object.assign(document.createElement('div'), {
+      className: 'ui segment card'
+    });
+    const segment = Object.assign(document.createElement('div'), {
+      className: 'content'
+    });
+
+    const segmentTitle = Object.assign(
       document.createElement('div'),
-      { className: 'ui segment' },
-      { innerText: JSON.stringify(item) }
+      { className: 'ui header small' },
+      { innerText: item.title }
     );
-    nestedContainer.appendChild(segment);
+    const segmentDescription = Object.assign(
+      document.createElement('div'),
+      { className: 'content' },
+      { innerText: item.description }
+    );
+    const segmentDate = Object.assign(
+      document.createElement('div'),
+      { className: 'meta' },
+      { innerText: item.dueDate }
+    );
+    segmentCont.appendChild(segment);
+    segment.appendChild(segmentTitle);
+    segment.appendChild(segmentDescription);
+    segment.appendChild(segmentDate);
+    nestedContainer.appendChild(segmentCont);
   }
 };
 
