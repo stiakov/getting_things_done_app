@@ -1,33 +1,44 @@
-import form from "./forms";
-import {tag} from "./env";
-import {setup} from "./env"
-import {modal} from "./env"
+import form from './forms';
+import { tag } from './env';
+import { setup } from './env';
+import { modal } from './env';
 
 export const segmentGen = {
-  addTasktoProject: (project, task) => {
-  },
-  emptySegments: () => {
+  emptySegments: (idParent) => {
     const nestedContainer = Object.assign(document.createElement('div'), {
       className: 'ui basic segments'
     });
     const segment = Object.assign(
       document.createElement('div'),
-      {className: 'ui segment'},
-      {innerText: item}
+      {
+        className: 'ui basic segments'
+      },
+      { id: `segments-${idParent}` }
     );
+    // tasks.forEach((item) => {
+    //   const segment = Object.assign(
+    //     document.createElement('div'),
+    //     { className: 'ui segment' },
+    //     { innerText: JSON.stringify(item) }
+    //   );
     nestedContainer.appendChild(segment);
+    // });
+
     return nestedContainer;
   },
-  nestedSegments: (tasks) => {
-
-    const nestedContainer = Object.assign(document.createElement('div'), {
-      className: 'ui basic segments'
-    });
+  nestedSegments: (idProject, tasks) => {
+    const nestedContainer = Object.assign(
+      document.createElement('div'),
+      {
+        className: 'ui basic segments'
+      },
+      { id: idProject }
+    );
     tasks.forEach((item) => {
       const segment = Object.assign(
         document.createElement('div'),
-        {className: 'ui segment'},
-        {innerText: JSON.stringify(item)}
+        { className: 'ui segment' },
+        { innerText: JSON.stringify(item) }
       );
       nestedContainer.appendChild(segment);
     });
@@ -38,21 +49,19 @@ export const segmentGen = {
 
 export const column = {
   createColumn: (from, project) => {
-    const col = Object.assign(
-      document.createElement('div'),
-      {className: 'column project-container'},
-    );
+    const col = Object.assign(document.createElement('div'), {
+      className: 'column project-container'
+    });
     if (from === 'newProjButton') {
-      Object.assign(col, {id: `col-${setup.counterProj}`});
+      Object.assign(col, { id: `col-${setup.counterProj}` });
     } else {
-      Object.assign(col, {id: `col-${project.id}`});
+      Object.assign(col, { id: `col-${project.id}` });
     }
     tag.getColContainer().appendChild(col);
     column.setProjSegment(from, col, project);
   },
 
   setProjSegment: (from, column, objProject) => {
-
     const segmentContainer = Object.assign(document.createElement('div'), {
       className: 'ui segments'
     });
@@ -65,21 +74,21 @@ export const column = {
       className: 'content ui form'
     });
 
-    const header = Object.assign(
-      document.createElement('h2'),
-      {className: 'header'},
-    );
+    const header = Object.assign(document.createElement('h2'), {
+      className: 'header'
+    });
 
     const addButton = document.createElement('div');
     Object.assign(
       addButton,
-      {className: 'ui attached center aligned button btn-style'},
-      {innerText: 'Add task'},
+      { className: 'ui attached center aligned button btn-style' },
+      { innerText: 'Add task' }
     );
 
     const idProj = from === 'newProjButton' ? setup.counterProj : objProject.id;
     addButton.id = `newTaskBtn-${idProj}`;
 
+    segmentContainer.id = `segments-${column.id.split('-')[1]}`;
     if (from === 'newProjButton') {
       header.innerText = objProject;
     } else {
@@ -97,10 +106,12 @@ export const column = {
     });
     segment.appendChild(content);
     content.appendChild(header);
-    console.log('from' + from);
-    console.log('objProject' + objProject);
     if (from === 'localSt') {
-      segmentContainer.appendChild(segmentGen.nestedSegments(Object.values(objProject.tasks)));
+      segmentContainer.appendChild(
+        segmentGen.nestedSegments(idProj, Object.values(objProject.tasks))
+      );
+    } else {
+      segmentGen.emptySegments(idProj);
     }
     segmentContainer.appendChild(addButton);
     column.appendChild(segmentContainer);
@@ -110,26 +121,27 @@ export const column = {
 
 export const addCard = {
   createCard: (header, sub, idProject) => {
-    const mainCard = Object.assign(document.createElement('div'),
+    const mainCard = Object.assign(
+      document.createElement('div'),
       { className: 'ui card' },
       { id: idProject }
-      );
+    );
     const cardHeader = Object.assign(
       document.createElement('div'),
-      {className: 'ui medium header extra-space'},
-      {innerText: header}
+      { className: 'ui medium header extra-space' },
+      { innerText: header }
     );
     const cardSub = Object.assign(
       document.createElement('div'),
-      {className: 'meta'},
-      {innerText: sub}
+      { className: 'meta' },
+      { innerText: sub }
     );
     const cardContent = Object.assign(
       document.createElement('div'),
       {
         className: 'content ui form'
       },
-      {id: 'cardCont'}
+      { id: 'cardCont' }
     );
     mainCard.appendChild(cardHeader);
     mainCard.appendChild(cardSub);

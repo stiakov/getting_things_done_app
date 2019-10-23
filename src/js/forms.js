@@ -1,10 +1,11 @@
 import * as Env from './env';
 import systemManager from './logic';
-import {setup} from './env';
-import {column} from './projectLayout';
-import {tag} from "./env";
+import { setup } from './env';
+import { tag } from './env';
+import { column } from './projectLayout';
+import { segmentGen } from './projectLayout';
 
-
+const seg = segmentGen;
 const form = {
   closeForm: () => {
     const mod = document.getElementById('modal');
@@ -71,8 +72,7 @@ const form = {
     );
     Env.tag.getFormContainer().appendChild(btn);
     const idProj = btn.parentElement.parentElement.id;
-    btn.addEventListener('click', (e) => {
-      console.log(e);
+    btn.addEventListener('click', () => {
       Env.task.addTask(idProj);
       form.closeForm();
     });
@@ -99,10 +99,14 @@ const form = {
 
     const buttonBehaviour = () => {
       const projectTitle = document.getElementById('project-name').value;
-      const temp = systemManager.ProjectManager.newProject(setup.counterProj, projectTitle);
+      const temp = systemManager.ProjectManager.newProject(
+        setup.counterProj,
+        projectTitle
+      );
       form.closeForm();
       localStorage.setItem(setup.counterProj, JSON.stringify(temp));
       column.createColumn('newProjButton', projectTitle);
+      // seg.emptySegments(setup.counterProj);
     };
 
     btnProject.addEventListener('click', () => buttonBehaviour());

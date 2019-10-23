@@ -1,10 +1,9 @@
 import { format } from 'date-fns';
 import fav from '../img/favicon.ico';
 import systemManager from './logic';
-import form from "./forms";
+import form from './forms';
 import { column } from './projectLayout';
 import { addCard } from './projectLayout';
-
 
 const sm = systemManager;
 
@@ -34,7 +33,11 @@ export const setup = {
     const btn_navbar = document.getElementById('btn-project');
 
     btn_navbar.addEventListener('click', () => {
-      const projectCard = addCard.createCard('New Project', 'Start a new project', setup.counterProj);
+      const projectCard = addCard.createCard(
+        'New Project',
+        'Start a new project',
+        setup.counterProj
+      );
       modal.loadModal(projectCard);
       form.newProject();
     });
@@ -54,11 +57,8 @@ export const setup = {
       const keys = Object.keys(localStorage);
       setup.counterProj = localStorage.length + 1;
 
-        console.log('----keys' + keys);
       keys.forEach((key) => {
-        console.log('inner key' + key);
         const proj = JSON.parse(localStorage.getItem(key));
-        console.log('getting localSt' + JSON.parse(localStorage.getItem(key)));
         column.createColumn('localSt', proj);
       });
     }
@@ -79,8 +79,19 @@ export const task = {
     );
     const proj = JSON.parse(localStorage.getItem(idProject));
     proj.tasks.push(itm);
+
+    task.displayTask(idProject, itm);
     localStorage.setItem(idProject, JSON.stringify(proj));
-    console.log('objeto proj: ' + JSON.stringify(proj));
+  },
+  displayTask: (idProject, item) => {
+    console.log('idProject:' + idProject);
+    const nestedContainer = document.getElementById(`segments-${idProject}`);
+    const segment = Object.assign(
+      document.createElement('div'),
+      { className: 'ui segment' },
+      { innerText: JSON.stringify(item) }
+    );
+    nestedContainer.appendChild(segment);
   }
 };
 
@@ -137,4 +148,3 @@ const init = () => {
 };
 
 init();
-
