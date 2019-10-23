@@ -63,6 +63,8 @@ export const setup = {
       keys.forEach((key) => {
         const proj = JSON.parse(localStorage.getItem(key));
         column.createColumn('localSt', proj);
+        setup.counterTask += proj.tasks.length;
+        console.log(setup.counterTask);
       });
     }
   }
@@ -70,11 +72,13 @@ export const setup = {
 
 export const task = {
   addTask: (idProject) => {
+    let task_id = setup.counterTask;
     const task_title = document.getElementById('task-title').value;
     const task_description = document.getElementById('task-description').value;
     const task_date = document.getElementById('task-date').value;
     const task_priority = document.getElementById('task-priority').checked;
     const itm = sm.todoItem(
+      task_id,
       task_title,
       task_description,
       task_date,
@@ -84,12 +88,23 @@ export const task = {
     proj.tasks.push(itm);
     task.displayTask(idProject, itm);
     localStorage.setItem(idProject, JSON.stringify(proj));
+    console.log('en addtask: ' + setup.counterTask);
+    setup.counterTask += 1;
   },
+
   displayTask: (idProject, item) => {
     const nestedContainer = document.getElementById(idProject);
-    const segmentCont = Object.assign(document.createElement('div'), {
-      className: 'ui segment card'
-    });
+    const segmentCont = task.cardLoad(idProject, item);
+    nestedContainer.appendChild(segmentCont);
+  },
+  cardLoad: (idProject, item) => {
+    const segmentCont = Object.assign(
+      document.createElement('div'),
+      {
+        className: 'ui segment card'
+      },
+      { id: `sg-${item.id}` }
+    );
     const segment = Object.assign(document.createElement('div'), {
       className: 'content'
     });
@@ -109,11 +124,47 @@ export const task = {
       { className: 'meta' },
       { innerText: item.dueDate }
     );
+    const segmentBtnCont = Object.assign(
+      document.createElement('div'),
+      { className: 'meta' },
+      { id: `btns-${idProject}` }
+    );
+    const btnEdit = Object.assign(
+      document.createElement('button'),
+      { className: 'button btn-style' },
+      { innerText: 'Edit' }
+    );
+    const btnDelete = Object.assign(
+      document.createElement('button'),
+      { className: 'button btn-style' },
+      { innerText: 'Delete' }
+    );
+
+    btnDelete.addEventListener('click', () => {
+      task.btnDeleteBehaviour(idProject, item);
+    });
+
+    btnEdit.addEventListener('click', () => {
+      console.log('editing...' + item);
+      // item.delete;
+    });
+
     segmentCont.appendChild(segment);
     segment.appendChild(segmentTitle);
     segment.appendChild(segmentDescription);
     segment.appendChild(segmentDate);
-    nestedContainer.appendChild(segmentCont);
+    segment.appendChild(segmentBtnCont);
+    segmentBtnCont.appendChild(btnEdit);
+    segmentBtnCont.appendChild(btnDelete);
+    return segmentCont;
+  },
+  btnDeleteBehaviour: (idProject, item) => {
+    let tempData = JSON.parse(localStorage.getItem(idProject));
+    let tempFilter = tempData.tasks.filter((task) => task.id !== item.id);
+    tempData.tasks = tempFilter;
+    localStorage.setItem(idProject, JSON.stringify(tempData));
+    const principal = document.getElementById(`sg-${item.id}`);
+    principal.parentElement.removeChild(principal);
   }
 };
 
@@ -126,7 +177,6 @@ export const modal = {
       }
       mod = undefined;
     });
-    // document.addEventListener('click', () =>  tag.getMainContainer().removeChild(mod));
   },
   loadModal: (tempcard) => {
     const modalCont = document.createElement('div');

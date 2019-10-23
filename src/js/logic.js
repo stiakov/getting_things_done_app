@@ -1,6 +1,7 @@
 const systemManager = {
-  todoItem: (title, description, dueDate, priority = 0, status = false) => {
+  todoItem: (id, title, description, dueDate, priority = 0, status = false) => {
     return {
+      id,
       title,
       description,
       dueDate,
@@ -10,7 +11,7 @@ const systemManager = {
   },
 
   ProjectManager: {
-    newProject: (id, name, tasks = []) => ({id, name, tasks}),
+    newProject: (id, name, tasks = []) => ({ id, name, tasks }),
     addToProject: (project, item) => {
       project.tasks[item.id] = item.todo;
     }

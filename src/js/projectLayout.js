@@ -2,6 +2,7 @@ import form from './forms';
 import { tag } from './env';
 import { setup } from './env';
 import { modal } from './env';
+import { task } from './env';
 
 export const segmentGen = {
   emptySegments: (idParent) => {
@@ -15,14 +16,7 @@ export const segmentGen = {
       },
       { id: `segments-${idParent}` }
     );
-    // tasks.forEach((item) => {
-    //   const segment = Object.assign(
-    //     document.createElement('div'),
-    //     { className: 'ui segment' },
-    //     { innerText: JSON.stringify(item) }
-    //   );
     nestedContainer.appendChild(segment);
-    // });
 
     return nestedContainer;
   },
@@ -35,32 +29,8 @@ export const segmentGen = {
       { id: idProject }
     );
     tasks.forEach((item) => {
-      const segmentCont = Object.assign(document.createElement('div'), {
-        className: 'ui segment card'
-      });
-      const segment = Object.assign(document.createElement('div'), {
-        className: 'content'
-      });
+      const segmentCont = task.cardLoad(idProject, item);
 
-      const segmentTitle = Object.assign(
-        document.createElement('div'),
-        { className: 'ui header small' },
-        { innerText: item.title }
-      );
-      const segmentDescription = Object.assign(
-        document.createElement('div'),
-        { className: 'content' },
-        { innerText: item.description }
-      );
-      const segmentDate = Object.assign(
-        document.createElement('div'),
-        { className: 'meta' },
-        { innerText: item.dueDate }
-      );
-      segmentCont.appendChild(segment);
-      segment.appendChild(segmentTitle);
-      segment.appendChild(segmentDescription);
-      segment.appendChild(segmentDate);
       nestedContainer.appendChild(segmentCont);
     });
 
@@ -112,6 +82,14 @@ export const column = {
     segmentContainer.id = `segments-${column.id.split('-')[1]}`;
     if (from === 'newProjButton') {
       header.innerText = objProject;
+      const basicsegment = Object.assign(
+        document.createElement('div'),
+        {
+          className: 'ui basic segments'
+        },
+        { id: idProj }
+      );
+      segmentContainer.appendChild(basicsegment);
     } else {
       header.innerText = objProject.name;
     }
