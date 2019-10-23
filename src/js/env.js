@@ -39,6 +39,9 @@ export const setup = {
         setup.counterProj
       );
       modal.loadModal(projectCard);
+      let modalGuide = document.getElementById('modalGuide');
+      if (modalGuide) tag.getMainContainer().removeChild(modalGuide);
+      modalGuide = null;
       form.newProject();
     });
     const colContainer = document.createElement('div');
