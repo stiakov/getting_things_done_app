@@ -1,9 +1,9 @@
-import { format } from 'date-fns';
+import {format} from 'date-fns';
 import fav from '../img/favicon.ico';
 import systemManager from './logic';
 import form from './forms';
-import { column } from './projectLayout';
-import { addCard } from './projectLayout';
+import {column} from './projectLayout';
+import {addCard} from './projectLayout';
 
 const sm = systemManager;
 
@@ -47,8 +47,8 @@ export const setup = {
     const colContainer = document.createElement('div');
     Object.assign(
       colContainer,
-      { className: 'ui equal width centered grid' },
-      { id: 'colContainer' }
+      {className: 'ui equal width centered grid'},
+      {id: 'colContainer'}
     );
     tag.getMainContainer().appendChild(colContainer);
     setup.getLocalSt();
@@ -71,31 +71,51 @@ export const setup = {
 };
 
 export const task = {
-  addTask: (idProject) => {
+  addTask: (from, idProject) => {
     let task_id = setup.counterTask;
     const task_title = document.getElementById('task-title').value;
     const task_description = document.getElementById('task-description').value;
     const task_date = document.getElementById('task-date').value;
-    const task_priority = document.getElementById('task-priority').checked;
     const itm = sm.todoItem(
       task_id,
       task_title,
       task_description,
       task_date,
-      task_priority
     );
     const proj = JSON.parse(localStorage.getItem(idProject));
-    proj.tasks.push(itm);
-    task.displayTask(idProject, itm);
-    localStorage.setItem(idProject, JSON.stringify(proj));
-    console.log('en addtask: ' + setup.counterTask);
+
+    console.log('tasks->' + proj.tasks);
+    if (from === 'new') {
+      proj.tasks.push(itm);
+    } else {
+      itm.id -= 1;
+      let idx;
+      for (let i = 0; i < proj.tasks.length; i += 1) {
+        if (proj.tasks[i].id === itm.id) {
+          idx = i;
+          break;
+        }
+      }
+      proj.tasks.splice(1, idx - 1, itm)
+    }
     setup.counterTask += 1;
+    task.displayTask(from, idProject, itm);
+    localStorage.setItem(idProject, JSON.stringify(proj));
   },
 
-  displayTask: (idProject, item) => {
+  displayTask: (from, idProject, item) => {
     const nestedContainer = document.getElementById(idProject);
-    const segmentCont = task.cardLoad(idProject, item);
-    nestedContainer.appendChild(segmentCont);
+    if (from === 'new') {
+      const segmentCont = task.cardLoad(idProject, item);
+      nestedContainer.appendChild(segmentCont);
+    } else {
+      const oldCard = document.getElementById(`sg-${item.id}`);
+      const content = oldCard.firstChild;
+      const children = content.childNodes;
+      children[0].innerText = item.title;
+      children[1].innerText = item.description;
+      children[2].innerText = item.dueDate;
+    }
   },
   cardLoad: (idProject, item) => {
     const segmentCont = Object.assign(
@@ -103,7 +123,7 @@ export const task = {
       {
         className: 'ui segment card'
       },
-      { id: `sg-${item.id}` }
+      {id: `sg-${item.id}`}
     );
     const segment = Object.assign(document.createElement('div'), {
       className: 'content'
@@ -111,33 +131,33 @@ export const task = {
 
     const segmentTitle = Object.assign(
       document.createElement('div'),
-      { className: 'ui header small' },
-      { innerText: item.title }
+      {className: 'ui header medium'},
+      {innerText: item.title}
     );
     const segmentDescription = Object.assign(
       document.createElement('div'),
-      { className: 'content' },
-      { innerText: item.description }
+      {className: 'content'},
+      {innerText: item.description}
     );
     const segmentDate = Object.assign(
       document.createElement('div'),
-      { className: 'meta' },
-      { innerText: item.dueDate }
+      {className: 'meta'},
+      {innerText: item.dueDate}
     );
     const segmentBtnCont = Object.assign(
       document.createElement('div'),
-      { className: 'meta' },
-      { id: `btns-${idProject}` }
+      {className: 'meta'},
+      {id: `btns-${idProject}`}
     );
     const btnEdit = Object.assign(
       document.createElement('button'),
-      { className: 'button btn-style' },
-      { innerText: 'Edit' }
+      {className: 'button btn-style'},
+      {innerText: 'Edit'}
     );
     const btnDelete = Object.assign(
       document.createElement('button'),
-      { className: 'button btn-style' },
-      { innerText: 'Delete' }
+      {className: 'button btn-style'},
+      {innerText: 'Delete'}
     );
 
     btnDelete.addEventListener('click', () => {
@@ -145,8 +165,14 @@ export const task = {
     });
 
     btnEdit.addEventListener('click', () => {
-      console.log('editing...' + item);
-      // item.delete;
+      const data = JSON.stringify(item);
+      const taskCard = addCard.createCard(
+        'Edit your task',
+        '',
+        idProject
+      );
+      modal.loadModal(taskCard);
+      form.newTask(data);
     });
 
     segmentCont.appendChild(segment);

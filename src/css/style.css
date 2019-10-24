@@ -37,6 +37,10 @@ body {
   -o-transform: rotate(270deg);
 }
 
+.small {
+  margin-bottom: 0 !important;
+}
+
 @media only screen and (max-width: 768px) {
   .project-container {
     min-width: 100% !important;

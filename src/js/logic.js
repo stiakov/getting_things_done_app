@@ -1,11 +1,10 @@
 const systemManager = {
-  todoItem: (id, title, description, dueDate, priority = 0, status = false) => {
+  todoItem: (id, title, description, dueDate, status = false) => {
     return {
       id,
       title,
       description,
       dueDate,
-      priority,
       status
     };
   },
