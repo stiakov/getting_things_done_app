@@ -60,11 +60,10 @@ export const setup = {
       const keys = Object.keys(localStorage);
       setup.counterProj = localStorage.length + 1;
 
-      keys.forEach((key) => {
+      keys.sort().forEach((key) => {
         const proj = JSON.parse(localStorage.getItem(key));
         column.createColumn('localSt', proj);
         setup.counterTask += proj.tasks.length;
-        console.log(setup.counterTask);
       });
     }
   }
@@ -84,7 +83,6 @@ export const task = {
     );
     const proj = JSON.parse(localStorage.getItem(idProject));
 
-    console.log('tasks->' + proj.tasks);
     if (from === 'new') {
       proj.tasks.push(itm);
     } else {
