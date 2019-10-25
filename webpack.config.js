@@ -23,6 +23,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'createProjectModal.html',
       template: 'src/createProjectModal.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'columns.html',
+      template: 'src/columns.html'
     })
   ],
   module: {
