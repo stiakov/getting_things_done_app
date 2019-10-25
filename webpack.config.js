@@ -27,6 +27,10 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'columns.html',
       template: 'src/columns.html'
+    }),
+    new HtmlWebpackPlugin({
+      filename: 'createFormTask.html',
+      template: 'src/createFormTask.html'
     })
   ],
   module: {

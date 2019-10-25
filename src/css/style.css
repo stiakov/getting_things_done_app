@@ -16,6 +16,10 @@ body {
   margin-top: 1em !important;
 }
 
+.extra-space-bottom {
+  margin-bottom: 1em !important;
+}
+
 .inactive {
   background: lightgray !important;
 }
