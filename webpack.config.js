@@ -18,6 +18,11 @@ module.exports = {
         removeComments: true,
         collapseWhitespace: false
       }
+    }),
+    // This can be deleted, only index is required.
+    new HtmlWebpackPlugin({
+      filename: 'createProjectModal.html',
+      template: 'src/createProjectModal.html'
     })
   ],
   module: {

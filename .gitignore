@@ -60,4 +60,4 @@ typings/
 .next
 .idea
 .vscode
-dist
+/dist
