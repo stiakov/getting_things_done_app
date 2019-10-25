@@ -22,7 +22,7 @@ body {
 
 .project-container {
   min-width: 33% !important;
-  max-width: 33% !important;
+  max-width: 50% !important;
 }
 
 .small {
@@ -33,4 +33,20 @@ body {
   .project-container {
     min-width: 100% !important;
   }
+}
+
+.task-title {
+  font-size: 1.2em;
+  font-weight: bolder;
+}
+#sgc-0-0 {
+  border-left-color: red !important;
+  border-left: solid;
+  border-left-width: thick;
+}
+
+#sgc-0-1 {
+  border-left-color: green !important;
+  border-left: solid;
+  border-left-width: thick;
 }
