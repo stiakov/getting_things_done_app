@@ -7,6 +7,10 @@ body {
   margin-top: 2em;
 }
 
+.left-text {
+  text-align: left;
+}
+
 .btn-style {
   background: rgba(255, 134, 134, 1.0) !important;
   color: white !important;
@@ -43,6 +47,7 @@ body {
   font-size: 1.2em;
   font-weight: bolder;
 }
+
 #sgc-0-0 {
   border-left-color: red !important;
   border-left: solid;
