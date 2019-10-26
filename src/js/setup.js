@@ -4,7 +4,6 @@ import systemManager from '../js/logic';
 
 const sm = systemManager;
 
-let array = [];
 const setup = {
   counterProj: 0,
   counterTask: 0,

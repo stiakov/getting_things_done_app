@@ -70,7 +70,7 @@ const layout = {
     );
     const deleteBtn = Object.assign(
       document.createElement('label'),
-      { className: 'ui right icon label' },
+      { className: 'ui right icon label delete' },
       { id: `trash-${project.tasks[0].id}` },
       { innerText: 'Delete' }
     );
@@ -79,7 +79,7 @@ const layout = {
     });
     const editBtn = Object.assign(
       document.createElement('label'),
-      { className: 'ui right icon label' },
+      { className: 'ui right icon label edit' },
       { id: `edit-${project.tasks[0].id}` },
       { innerText: 'Edit' }
     );
@@ -88,7 +88,7 @@ const layout = {
     });
     const doneBtn = Object.assign(
       document.createElement('label'),
-      { className: 'ui right icon label' },
+      { className: 'ui right icon label done' },
       { id: `check-${project.tasks[0].id}` },
       { innerText: 'Complete' }
     );
