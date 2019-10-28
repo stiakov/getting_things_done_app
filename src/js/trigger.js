@@ -7,14 +7,15 @@ const trigger = {
       btn.addEventListener('click', () => {
         // remove function
         console.log('in deleting item listener...');
-        deleteTask();
+        behaviour.deleteTask();
       });
     });
   },
   setEdit: (project, item) => {
-    const btnsEdit = Array.from(document.getElementsByClassName('edit'));
-    btnsEdit.forEach((btn) => {
-      btn.addEventListener('click', () => {
+    const fields = Array.from(document.getElementsByClassName('edit'));
+    fields.forEach((field) => {
+      console.log(field);
+      field.addEventListener('click', () => {
         // edit function
         console.log('Editing item..');
       });
@@ -23,10 +24,10 @@ const trigger = {
 
   setDone: (project, item) => {
     const btnsDone = document.getElementsByClassName('done');
-    btnsDone.forEach((btn) => {
+    [...btnsDone].forEach((btn) => {
       btn.addEventListener('click', () => {
         // done function
-        editStatus(project, item);
+        behaviour.editStatus(project, item);
       });
     });
   },
@@ -35,8 +36,8 @@ const trigger = {
     btnsAddTask.forEach((btn) => {
       btn.addEventListener('click', () => {
         // addtask function
-        getTaskData();
-        addTaskToProject(project, item);
+        behaviour.getTaskData();
+        behaviour.addTaskToProject(project, item);
       });
     });
   },
