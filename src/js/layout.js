@@ -16,8 +16,9 @@ const layout = {
     });
     const headerContent = Object.assign(
       document.createElement('h2'),
-      { className: 'header' },
-      { innerText: project.name }
+      { className: 'header edit' },
+      { innerText: project.name },
+      { contentEditable: 'true' }
     );
 
     colContainer.appendChild(projectContainer);
@@ -47,21 +48,24 @@ const layout = {
     );
     const sgmCard = Object.assign(
       document.createElement('span'),
-      { className: 'task-title' },
-      { innerText: project.tasks[0].title }
+      { className: 'task-title edit' },
+      { innerText: project.tasks[0].title },
+      { contentEditable: 'true' }
     );
     const sgmDivider = Object.assign(document.createElement('div'), {
       className: 'ui clearing divider'
     });
     const contentDescription = Object.assign(
       document.createElement('div'),
-      { className: 'content' },
-      { innerText: project.tasks[0].description }
+      { className: 'content edit' },
+      { innerText: project.tasks[0].description },
+      { contentEditable: 'true' }
     );
     const contentDate = Object.assign(
       document.createElement('div'),
-      { className: 'meta' },
-      { innerText: project.tasks[0].date }
+      { className: 'meta edit' },
+      { innerText: project.tasks[0].date },
+      { contentEditable: 'true' }
     );
     const contentButtons = Object.assign(
       document.createElement('div'),
@@ -76,15 +80,6 @@ const layout = {
     );
     const deleteIcon = Object.assign(document.createElement('i'), {
       className: 'trash alternate icon'
-    });
-    const editBtn = Object.assign(
-      document.createElement('label'),
-      { className: 'ui right icon label edit' },
-      { id: `edit-${project.tasks[0].id}` },
-      { innerText: 'Edit' }
-    );
-    const editIcon = Object.assign(document.createElement('i'), {
-      className: 'edit icon'
     });
     const doneBtn = Object.assign(
       document.createElement('label'),
@@ -102,11 +97,19 @@ const layout = {
     basicSeg.appendChild(contentDate);
     basicSeg.appendChild(contentButtons);
     contentButtons.appendChild(deleteBtn);
-    contentButtons.appendChild(editBtn);
     contentButtons.appendChild(doneBtn);
     deleteBtn.appendChild(deleteIcon);
-    editBtn.appendChild(editIcon);
     doneBtn.appendChild(doneIcon);
+
+    const fields = [sgmCard, contentDescription, contentDate];
+    // fields.forEach((field) => {
+    //   field.addEventListener('click', () => {
+    //     let tempChange = JSON.parse(localStorage.getItem(project.id));
+    //     let tempFilter = tempChange.tasks.filter(
+    //       (task) => task.id === field.id
+    //     );
+    //   });
+    // });
     return basicSeg;
   },
   taskForm: (project) => {
