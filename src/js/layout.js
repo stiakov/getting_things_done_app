@@ -206,7 +206,7 @@ const layout = {
     ]);
 
     document.body.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') modal.classList.remove('active');
+      if (e.key === 'Escape') mainContainer.removeChild(modal);
     });
 
     const modalGrid = crea('div', [
