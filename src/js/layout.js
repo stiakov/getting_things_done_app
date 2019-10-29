@@ -1,25 +1,27 @@
+const crea = (type, attrib = []) => {
+  const elem = document.createElement(type);
+  if (attrib.length > 0) {
+    attrib.forEach((item) => {
+      Object.assign(elem, item)
+    });
+  }
+  return elem
+};
 const layout = {
   column: (project) => {
     const colContainer = document.getElementById('colContainer');
-    const projectContainer = Object.assign(
-      document.createElement('div'),
-      { className: 'colum project-container' },
+    const projectContainer = crea('div', [
+      { className: 'column project-container' },
       { id: `col-${project.id}` }
-    );
-    const mainSegment = Object.assign(
-      document.createElement('div'),
-      { className: 'ui placeholder segments' },
-      { id: `segments-${project.id}` }
-    );
-    const headerSegment = Object.assign(document.createElement('div'), {
-      className: 'ui center aligned segment'
-    });
-    const headerContent = Object.assign(
-      document.createElement('h2'),
+    ]);
+    const mainSegment = crea('div', [{ className: 'ui placeholder segments' }, { id: `segments-${project.id}` }]);
+
+    const headerSegment = crea('div', [{ className: 'ui center aligned segment' }]);
+    const headerContent = crea('h2', [
       { className: 'header edit' },
       { innerText: project.name },
       { contentEditable: 'true' }
-    );
+    ]);
 
     colContainer.appendChild(projectContainer);
     projectContainer.appendChild(mainSegment);
@@ -29,110 +31,98 @@ const layout = {
   },
   taskProjectButton: (project) => {
     const mainSegmnt = document.getElementById(`segments-${project.id}`);
-    const projectAddTaskBtn = Object.assign(
-      document.createElement('div'),
+    const projectAddTaskBtn = crea('div', [
       { className: 'ui attached center aligned button btn-style' },
       { id: `newTaskBtn-${project.id}` },
       { innerText: 'Add Task' }
-    );
+    ]);
     mainSegmnt.appendChild(projectAddTaskBtn);
     return mainSegmnt;
   },
+  cardFields: () => {
+    const basicSeg = crea('div', [{ className: 'ui segment left-text' }]);
+
+    const sgmDivider = crea('div', [{ className: 'ui clearing divider' }]);
+    const sgmCard = crea('span', [
+      { className: 'task-title edit' },
+      { contentEditable: 'true' }
+    ]);
+
+    const contentDescription = crea('div', [
+      { className: 'content edit' },
+      { contentEditable: 'true' }
+    ]);
+    const contentDate = crea('div', [
+      { className: 'meta edit' },
+      { contentEditable: 'true' }
+    ]);
+    const contentButtons = crea('div', [{ className: 'meta' }]);
+
+    const deleteBtn = crea('label', [
+      { className: 'ui right icon label delete' },
+      { innerText: 'Delete' }
+    ]);
+
+    const deleteIcon = crea('i', [{ className: 'trash alternate icon' }]);
+    const doneBtn = crea('label', [
+      { className: 'ui right icon label done' },
+      { innerText: 'Complete' }
+    ]);
+    const doneIcon = crea('i', [{ className: 'check circle icon' }]);
+
+    return { segment: basicSeg,
+      divider: sgmDivider,
+      title: sgmCard,
+      content: contentDescription,
+      date: contentDate,
+      contentButtons,
+      delete: deleteBtn,
+      deleteIcon,
+      doneButton: doneBtn,
+      doneIcon
+    }
+  },
   task: (project) => {
     const mainSegmnt = document.getElementById(`segments-${project.id}`);
+    const card = layout.cardFields();
+    card['title'].innerText = project.tasks[0].title;
+    card['content'].innerText = project.tasks[0].description;
+    card['date'].innerText = project.tasks[0].date;
+    card['segment'].id = `sgc-${ project.id}-${project.tasks[0].id }`;
+    card['contentButtons'].id = `btns-${project.tasks[0].id}`;
+    card['delete'].id = `trash-${ project.tasks[0].id }`;
+    card['doneButton'].id = `check-${ project.tasks[0].id }`;
 
-    const basicSeg = Object.assign(
-      document.createElement('div'),
-      { className: 'ui segment left-text' },
-      { id: `sgc-${project.id}-${project.tasks[0].id}` }
-    );
-    const sgmCard = Object.assign(
-      document.createElement('span'),
-      { className: 'task-title edit' },
-      { innerText: project.tasks[0].title },
-      { contentEditable: 'true' }
-    );
-    const sgmDivider = Object.assign(document.createElement('div'), {
-      className: 'ui clearing divider'
-    });
-    const contentDescription = Object.assign(
-      document.createElement('div'),
-      { className: 'content edit' },
-      { innerText: project.tasks[0].description },
-      { contentEditable: 'true' }
-    );
-    const contentDate = Object.assign(
-      document.createElement('div'),
-      { className: 'meta edit' },
-      { innerText: project.tasks[0].date },
-      { contentEditable: 'true' }
-    );
-    const contentButtons = Object.assign(
-      document.createElement('div'),
-      { className: 'meta' },
-      { id: `btns-${project.tasks[0].id}` }
-    );
-    const deleteBtn = Object.assign(
-      document.createElement('label'),
-      { className: 'ui right icon label delete' },
-      { id: `trash-${project.tasks[0].id}` },
-      { innerText: 'Delete' }
-    );
-    const deleteIcon = Object.assign(document.createElement('i'), {
-      className: 'trash alternate icon'
-    });
-    const doneBtn = Object.assign(
-      document.createElement('label'),
-      { className: 'ui right icon label done' },
-      { id: `check-${project.tasks[0].id}` },
-      { innerText: 'Complete' }
-    );
-    const doneIcon = Object.assign(document.createElement('i'), {
-      className: 'check circle icon'
-    });
-    mainSegmnt.appendChild(basicSeg);
-    basicSeg.appendChild(sgmCard);
-    basicSeg.appendChild(sgmDivider);
-    basicSeg.appendChild(contentDescription);
-    basicSeg.appendChild(contentDate);
-    basicSeg.appendChild(contentButtons);
-    contentButtons.appendChild(deleteBtn);
-    contentButtons.appendChild(doneBtn);
-    deleteBtn.appendChild(deleteIcon);
-    doneBtn.appendChild(doneIcon);
+    mainSegmnt.appendChild(card['segment']);
+    card['segment'].appendChild(card['title']);
+    card['segment'].appendChild(card['divider']);
+    card['segment'].appendChild(card['content']);
+    card['segment'].appendChild(card['date']);
+    card['segment'].appendChild(card['contentButtons']);
+    card['contentButtons'].appendChild(card['delete']);
+    card['contentButtons'].appendChild(card['doneButton']);
+    card['delete'].appendChild(card['deleteIcon']);
+    card['doneButton'].appendChild(card['doneIcon']);
+    layout.loadModal('project', layout.formNewProject());
 
-    const fields = [sgmCard, contentDescription, contentDate];
-    // fields.forEach((field) => {
-    //   field.addEventListener('click', () => {
-    //     let tempChange = JSON.parse(localStorage.getItem(project.id));
-    //     let tempFilter = tempChange.tasks.filter(
-    //       (task) => task.id === field.id
-    //     );
-    //   });
-    // });
-    return basicSeg;
+    return card['segment'];
   },
-  taskForm: (project) => {
-    const mainContainer = document.getElementById('main-container');
-    const formSegment = Object.assign(document.createElement('div'), {
-      className: 'ui segment'
-    });
-    const form = Object.assign(document.createElement('form'), {
-      className: 'ui form'
-    });
 
+  formNewTask: (project) => {
     const fields = [
       {
         name: 'Title',
         type: 'text',
         id: 'task-title',
-        placeholder: 'Write a title for your task'
+        //placeholder: 'Write a title for your task'
+        placeholder: 'Title'
       },
       {
         name: 'Description',
         type: 'text',
         id: 'task-description',
-        placeholder: 'Short description'
+        placeholder: 'Description'
+        //placeholder: 'Short description'
       },
       {
         name: 'Due date',
@@ -154,127 +144,106 @@ const layout = {
       }
     ];
 
+    const formContainer = crea('div', [{ id: 'card-fields' }]);
+
     fields.forEach((input) => {
-      const fieldCont = Object.assign(document.createElement('div'), {
-        className: 'field'
-      });
-      const label = Object.assign(document.createElement('label'), {
-        innerText: input.name
-      });
-      const nameField = Object.assign(
-        document.createElement('input'),
+      const fieldCont = crea('div', [{ className: 'field' }]);
+      const label = crea('label', [{ innerText: input.name }]);
+      const nameField = crea('input',[
         { type: input.type },
         { placeholder: input.placeholder },
         { name: input.name },
         { id: input.id }
-      );
-      fieldCont.appendChild(label);
+      ]);
       fieldCont.appendChild(nameField);
-      return fieldCont;
+      formContainer.appendChild(fieldCont);
     });
 
     checkboxes.forEach((input) => {
-      const checkCont = Object.assign(document.createElement('div'), {
-        className: 'field'
-      });
-      const checkField = Object.assign(document.createElement('div'), {
-        className: 'ui checkbox'
-      });
-      const boxField = Object.assign(
-        document.createElement('input'),
+      const checkCont = crea('div', [{ className: 'field' }]);
+      const checkField = crea('div', [{ className: 'ui checkbox' }]);
+      const boxField = crea('input', [
         { type: input.type },
         { id: input.id }
-      );
-      const checkLabel = Object.assign(document.createElement('label'), {
-        innerText: input.name
-      });
-      fieldCont.appendChild(checkField);
+      ]);
+      const checkLabel = crea('label', [{ innerText: input.name }]);
+      checkCont.appendChild(checkField);
       checkField.appendChild(boxField);
       checkField.appendChild(checkLabel);
-      return checkCont;
+      formContainer.appendChild(checkCont);
     });
-    const addTaskBtn = Object.assign(
-      document.createElement('button'),
-      { className: 'ui button' },
+    const addTaskBtn = crea('button', [
+      { className: 'ui button btn-style extra-space' },
       { type: 'submit' },
-      { id: `create-task-${project.id}` }
-    );
+      { id: `create-task-${project.id}` },
+      { innerText: 'Submit' }
+    ]);
+    formContainer.appendChild(addTaskBtn);
 
-    mainContainer.appendChild(formSegment);
-    formSegment.appendChild(form);
-    form.appendChild(fieldCont);
-    form.appendChild(checkCont);
-    form.appendChild(addTaskBtn);
+    return formContainer;
   },
-  loadModal: () => {
-    const mainContainer = document.getElementById('main-container');
-    const modal = Object.assign(document.createElement('div'), {
-      className: 'ui dimmer modals page transition visible active'
-    });
-    const modalGrid = Object.assign(
-      document.createElement('div'),
-      { className: 'ui centered grid' },
-      { style: 'margin-top:20vh' }
-    );
-    const card = Object.assign(document.createElement('div'), {
-      className: 'ui card extra-space'
-    });
-    const cardHeader = Object.assign(
-      document.createElement('div'),
-      {
-        className: 'ui medium header extra-space'
-      },
-      { innerText: 'New Project' }
-    );
-    const cardSub = Object.assign(
-      document.createElement('div'),
-      {
-        className: 'meta'
-      },
-      { innerText: 'Start a new Project' }
-    );
-    const cardContent = Object.assign(
-      document.createElement('div'),
-      {
-        className: 'content ui form extra-space'
-      },
-      { innerText: 'New Project' },
-      { id: 'formCardCont' }
-    );
-    const cardFields = Object.assign(document.createElement('div'), {
-      id: 'card-fields'
-    });
-    const cardInput = Object.assign(
-      document.createElement('input'),
-      {
-        type: 'text'
-      },
+  formNewProject: () => {
+    const title = crea('input', [
+      { type: 'text' },
       { placeholder: 'Name your project' },
       { id: 'project-name' }
-    );
-    const cardBtn = Object.assign(
-      document.createElement('button'),
-      {
-        className: 'ui button btn-style extra-space'
-      },
+    ]);
+    const button = crea('button', [
+      { className: 'ui button btn-style extra-space' },
       { innerText: 'Create Project' }
-    );
-    const cardFooter = Object.assign(
-      document.createElement('div'),
-      {
-        className: 'meta'
-      },
+    ]);
+    return { title, button}
+  },
+  loadModal: (from, fields) => {
+    // from should be 'project' or 'task'
+    const modalTitle = (from === 'project') ? 'New Project' : 'New Task';
+    const modalLabel = (from === 'project') ? 'Start a new project' : 'Write a new task';
+
+    const mainContainer = document.getElementById('main-container');
+    const modal = crea('div', [
+      { className: 'ui dimmer modals page transition visible active underlay' },
+      { tabIndex: 1 }
+    ]);
+
+    document.body.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') modal.classList.remove('active');
+    });
+
+    const modalGrid = crea('div', [
+      { className: 'ui centered grid' },
+      { style: 'margin-top:20vh' }
+    ]);
+    const card = crea('div', [{ className: 'ui card extra-space overlay' }]);
+
+    const cardHeader = crea('div', [
+      { className: 'ui medium header extra-space' },
+      { innerText: modalTitle }
+    ]);
+    const cardSub = crea('div', [
+      { className: 'meta' },
+      { innerText: modalLabel }
+    ]);
+    const cardContent = crea('div', [{ className: 'content ui form extra-space' }]);
+
+    const cardFooter = crea('div', [
+      { className: 'meta' },
       { innerText: 'or press Escape to exit' }
-    );
+    ]);
+    if  (from === 'project') {
+      let cardFields = crea('div', [{ id: 'card-fields' }]);
+      cardFields.appendChild(fields['title']);
+      cardFields.appendChild(fields['button']);
+      cardContent.appendChild(cardFields);
+    } else {
+      cardContent.appendChild(fields);
+    }
+
     mainContainer.appendChild(modal);
     modal.appendChild(modalGrid);
     modalGrid.appendChild(card);
     card.appendChild(cardHeader);
     card.appendChild(cardSub);
     card.appendChild(cardContent);
-    cardContent.appendChild(cardFields);
-    cardFields.appendChild(cardInput);
-    cardFields.appendChild(cardBtn);
     card.appendChild(cardFooter);
   }
 };
