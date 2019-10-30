@@ -24,7 +24,7 @@ const setup = {
         setup.counterTask,
         'Test task',
         'Hi!',
-        currentDate.toLocaleDateString("en-US")
+        currentDate.toLocaleDateString('en-US')
       );
       demo.tasks.push(taskInit);
       localStorage.setItem(setup.counterProj, JSON.stringify(demo));
@@ -37,6 +37,7 @@ const setup = {
       }
     }
     setup.getProjectsNum();
+    setup.loadTaskNum();
     return demo;
   },
   setColumnInit: (project) => {
@@ -47,13 +48,14 @@ const setup = {
   getProjectsNum: () => {
     setup.counterProj = localStorage.length + 1;
   },
-  getTaskNum: () => {
+  getTaskCounter: () => (setup.counterTask += 1),
+  loadTaskNum: () => {
     const keys = Object.keys(localStorage);
     keys.forEach((key) => {
       const proj = JSON.parse(localStorage.getItem(key));
       setup.counterTask += proj.tasks.length;
     });
-    setup.counterTask += 1;
+    return setup.counterTask;
   }
 };
 

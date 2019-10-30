@@ -1,4 +1,4 @@
-import behaviour from "./behaviour";
+import behaviour from './behaviour';
 
 export const getById = (id) => document.getElementById(id);
 
@@ -8,10 +8,10 @@ export const create = (type, attrib = []) => {
   const elem = document.createElement(type);
   if (attrib.length > 0) {
     attrib.forEach((item) => {
-      Object.assign(elem, item)
+      Object.assign(elem, item);
     });
   }
-  return elem
+  return elem;
 };
 
 const layout = {
@@ -21,8 +21,13 @@ const layout = {
       { className: 'column project-container' },
       { id: `col-${project.id}` }
     ]);
-    const mainSegment = create('div', [{ className: 'ui placeholder segments' }, { id: `segments-${project.id}` }]);
-    const headerSegment = create('div', [{ className: 'ui center aligned segment' }]);
+    const mainSegment = create('div', [
+      { className: 'ui placeholder segments' },
+      { id: `segments-${project.id}` }
+    ]);
+    const headerSegment = create('div', [
+      { className: 'ui center aligned segment' }
+    ]);
     const headerContent = create('h2', [
       { className: 'header edit' },
       { innerText: project.name },
@@ -42,7 +47,9 @@ const layout = {
       { id: `newTaskBtn-${project.id}` },
       { innerText: 'Add Task' }
     ]);
-    projectAddTaskBtn.addEventListener('click', () => layout.loadModal('task', layout.formNewTask(project)));
+    projectAddTaskBtn.addEventListener('click', () =>
+      layout.loadModal('task', layout.formNewTask(project))
+    );
     append(mainSegmnt, projectAddTaskBtn);
     return mainSegmnt;
   },
@@ -67,14 +74,20 @@ const layout = {
       { className: 'ui right icon label delete' },
       { innerText: 'Delete' }
     ]);
+    deleteBtn.addEventListener('click', () => {
+      const id = deleteBtn.id.split('-');
+      const parent = JSON.parse(localStorage.getItem(id[1]));
+      const conTask = parent.tasks.filter((task) => task['id'] == id[2]);
+      behaviour.deleteTask(parent, conTask[0]);
+    });
     const deleteIcon = create('i', [{ className: 'trash alternate icon' }]);
     const doneBtn = create('label', [
       { className: 'ui right icon label done' },
       { innerText: 'Complete' }
     ]);
     const doneIcon = create('i', [{ className: 'check circle icon' }]);
-
-    return { segment: basicSeg,
+    return {
+      segment: basicSeg,
       divider: sgmDivider,
       title: sgmCard,
       content: contentDescription,
@@ -84,7 +97,7 @@ const layout = {
       deleteIcon,
       doneButton: doneBtn,
       doneIcon
-    }
+    };
   },
   loadTask: (project, task = []) => {
     const mainSegmnt = getById(`segments-${project.id}`);
@@ -97,10 +110,10 @@ const layout = {
       card['title'].innerText = task.title;
       card['content'].innerText = task.description;
       card['date'].innerText = task.date;
-      card['segment'].id = `sgc-${ project.id}-${task.id }`;
+      card['segment'].id = `sgc-${task.id}`;
       card['contentButtons'].id = `btns-${task.id}`;
-      card['delete'].id = `trash-${ task.id }`;
-      card['doneButton'].id = `check-${ task.id }`;
+      card['delete'].id = `trash-${project.id}-${task.id}`;
+      card['doneButton'].id = `check-${project.id}-${task.id}`;
 
       card['segment'].appendChild(card['title']);
       card['segment'].appendChild(card['divider']);
@@ -112,7 +125,6 @@ const layout = {
       card['delete'].appendChild(card['deleteIcon']);
       card['doneButton'].appendChild(card['doneIcon']);
       mainSegmnt.appendChild(card['segment']);
-
     });
     if (addTaskBtn) append(mainSegmnt, addTaskBtn);
     return mainSegmnt;
@@ -156,7 +168,7 @@ const layout = {
 
     fields.forEach((input) => {
       const fieldCont = create('div', [{ className: 'field' }]);
-      const nameField = create('input',[
+      const nameField = create('input', [
         { type: input.type },
         { placeholder: input.placeholder },
         { name: input.name },
@@ -207,18 +219,19 @@ const layout = {
       { innerText: 'Create Project' }
     ]);
     button.addEventListener('click', () => behaviour.addNewProject());
-    return { title, button}
+    return { title, button };
   },
   loadModal: (from, fields) => {
     // from must be 'project' or 'task'
-    const modalTitle = (from === 'project') ? 'New Project' : 'New Task';
-    const modalLabel = (from === 'project') ? 'Start a new project' : 'Write a new task';
+    const modalTitle = from === 'project' ? 'New Project' : 'New Task';
+    const modalLabel =
+      from === 'project' ? 'Start a new project' : 'Write a new task';
 
     const mainContainer = getById('main-container');
     let modal = create('div', [
       { className: 'ui dimmer modals page transition visible active underlay' },
       { tabIndex: 1 },
-      { id: 'modal'}
+      { id: 'modal' }
     ]);
 
     document.body.addEventListener('keydown', (e) => {
@@ -241,13 +254,15 @@ const layout = {
       { className: 'meta' },
       { innerText: modalLabel }
     ]);
-    const cardContent = create('div', [{ className: 'content ui form extra-space' }]);
+    const cardContent = create('div', [
+      { className: 'content ui form extra-space' }
+    ]);
     const cardFooter = create('div', [
       { className: 'meta' },
       { innerText: 'or press Escape to exit' }
     ]);
 
-    if  (from === 'project') {
+    if (from === 'project') {
       let cardFields = create('div', [{ id: 'card-fields' }]);
       append(cardFields, fields['title']);
       append(cardFields, fields['button']);

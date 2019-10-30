@@ -6,7 +6,3 @@ import trigger from '../src/js/trigger';
 
 setup.setFavicon();
 setup.setProjectInit();
-
-trigger.setEdit();
-trigger.setDone();
-trigger.setDelete();

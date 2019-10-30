@@ -1,12 +1,12 @@
-import layout from "./layout";
-import setup from "./setup";
-import systemManager from "./logic";
+import layout from './layout';
+import setup from './setup';
+import systemManager from './logic';
 
 const sm = systemManager;
 
 const behaviour = {
   getTaskData: () => {
-    let task_id = setup.counterTask += 1;
+    let task_id = setup.getTaskCounter();
     const task_title = document.getElementById('task-title').value;
     const task_description = document.getElementById('task-description').value;
     const task_date = document.getElementById('task-date').value;
@@ -20,13 +20,14 @@ const behaviour = {
     proj.tasks.push(item);
     layout.loadTask(proj, item);
     localStorage.setItem(project.id, JSON.stringify(proj));
+    // setup.counterTask += 1;
   },
-  deleteTask: () => {
+  deleteTask: (project, item) => {
     let tempData = JSON.parse(localStorage.getItem(project.id));
     let tempFilter = tempData.tasks.filter((task) => task.id !== item.id);
     tempData.tasks = tempFilter;
-    localStorage.setItem(idProject, JSON.stringify(tempData));
-    const principal = document.getElementById(`sgc-${project.id}-${item.id}`);
+    localStorage.setItem(project.id, JSON.stringify(tempData));
+    const principal = document.getElementById(`sgc-${item.id}`);
     principal.parentElement.removeChild(principal);
   },
   editStatus: (project, item) => {
@@ -41,7 +42,7 @@ const behaviour = {
   },
   addNewProject: (project = behaviour.getNewProjectData()) => {
     localStorage.setItem(setup.counterProj, JSON.stringify(project));
-    setup.setColumnInit(project)
+    setup.setColumnInit(project);
   }
 };
 
