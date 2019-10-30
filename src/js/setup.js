@@ -17,7 +17,6 @@ const setup = {
       setup.counterProj,
       'Project Demo'
     );
-    setup.getProjectsNum();
     const taskInit = sm.todoItem(
       setup.counterTask,
       'Test task',
@@ -33,6 +32,7 @@ const setup = {
     // task.dueDate = '2020-12-24';
     // demo.tasks.push(taskInit);
     localStorage.setItem(setup.counterProj, JSON.stringify(demo));
+    setup.getProjectsNum();
 
     return demo;
   },
