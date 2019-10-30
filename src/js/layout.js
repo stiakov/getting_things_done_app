@@ -1,3 +1,5 @@
+import behaviour from "./behaviour";
+
 const crea = (type, attrib = []) => {
   const elem = document.createElement(type);
   if (attrib.length > 0) {
@@ -36,6 +38,7 @@ const layout = {
       { id: `newTaskBtn-${project.id}` },
       { innerText: 'Add Task' }
     ]);
+    projectAddTaskBtn.addEventListener('click', () => layout.loadModal('task', layout.formNewTask(project)));
     mainSegmnt.appendChild(projectAddTaskBtn);
     return mainSegmnt;
   },
@@ -103,8 +106,6 @@ const layout = {
     card['contentButtons'].appendChild(card['doneButton']);
     card['delete'].appendChild(card['deleteIcon']);
     card['doneButton'].appendChild(card['doneIcon']);
-    layout.loadModal('project', layout.formNewProject());
-
     return card['segment'];
   },
 
@@ -114,7 +115,6 @@ const layout = {
         name: 'Title',
         type: 'text',
         id: 'task-title',
-        //placeholder: 'Write a title for your task'
         placeholder: 'Title'
       },
       {
@@ -122,7 +122,6 @@ const layout = {
         type: 'text',
         id: 'task-description',
         placeholder: 'Description'
-        //placeholder: 'Short description'
       },
       {
         name: 'Due date',
@@ -148,7 +147,6 @@ const layout = {
 
     fields.forEach((input) => {
       const fieldCont = crea('div', [{ className: 'field' }]);
-      const label = crea('label', [{ innerText: input.name }]);
       const nameField = crea('input',[
         { type: input.type },
         { placeholder: input.placeholder },
@@ -178,6 +176,13 @@ const layout = {
       { id: `create-task-${project.id}` },
       { innerText: 'Submit' }
     ]);
+
+    addTaskBtn.addEventListener('click', () => {
+      behaviour.addTaskToProject(project);
+      const main = document.getElementById('main-container');
+      const modal = document.getElementById('modal');
+      main.removeChild(modal);
+    });
     formContainer.appendChild(addTaskBtn);
 
     return formContainer;
@@ -192,6 +197,7 @@ const layout = {
       { className: 'ui button btn-style extra-space' },
       { innerText: 'Create Project' }
     ]);
+    button.addEventListener('click', () => behaviour.addNewProject());
     return { title, button}
   },
   loadModal: (from, fields) => {
@@ -202,7 +208,8 @@ const layout = {
     const mainContainer = document.getElementById('main-container');
     const modal = crea('div', [
       { className: 'ui dimmer modals page transition visible active underlay' },
-      { tabIndex: 1 }
+      { tabIndex: 1 },
+      { id: 'modal'}
     ]);
 
     document.body.addEventListener('keydown', (e) => {

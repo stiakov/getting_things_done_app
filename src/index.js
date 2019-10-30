@@ -7,6 +7,7 @@ import trigger from '../src/js/trigger';
 
 setup.setFavicon();
 setup.setColumnInit(setup.setProjectInit());
+
 trigger.setEdit();
 trigger.setDone();
 trigger.setDelete();

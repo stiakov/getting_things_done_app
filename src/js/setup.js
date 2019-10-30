@@ -5,8 +5,8 @@ import systemManager from '../js/logic';
 const sm = systemManager;
 
 const setup = {
-  counterProj: 0,
-  counterTask: 0,
+  counterProj: 1,
+  counterTask: 1,
 
   setFavicon: () => {
     const setFav = document.getElementById('favicon');
@@ -33,6 +33,7 @@ const setup = {
     // task.dueDate = '2020-12-24';
     // demo.tasks.push(taskInit);
     localStorage.setItem(setup.counterProj, JSON.stringify(demo));
+
     return demo;
   },
   setColumnInit: (project) => {
