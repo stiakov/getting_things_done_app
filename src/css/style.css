@@ -48,18 +48,21 @@ body {
   font-weight: bolder;
 }
 
-#sgc-0-0 {
-  border-left-color: red !important;
-  border-left: solid;
-  border-left-width: thick;
+.important {
+  border-left: solid !important;
+  border-left-width: thick !important;
+  border-left-color: #ffbfd1 !important;
 }
 
-#sgc-0-1 {
-  border-left-color: green !important;
-  border-left: solid;
-  border-left-width: thick;
+.normal {
+  border-left: solid !important;
+  border-left-width: thick !important;
+  border-left-color: #ffdbbf !important;
 }
 
 .completed {
-  background-color: grey !important;
+  background-color: #dfdfdf !important;
+  color: grey !important;
+  border-left-color: #b6b6b6 !important;
+
 }

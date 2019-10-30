@@ -11,17 +11,24 @@ const behaviour = {
     const task_title = getById('task-title').value;
     const task_description = getById('task-description').value;
     const task_date = getById('task-date').value;
-    const item = sm.todoItem(task_id, task_title, task_description, task_date);
-
+    const task_priority = getById('task-priority').checked;
+    const task_status = getById('task-status').checked;
+    const item = sm.todoItem(
+      task_id,
+      task_title,
+      task_description,
+      task_date,
+      task_priority,
+      task_status
+    );
+    console.log(item);
     return item;
   },
   addTaskToProject: (project, item = behaviour.getTaskData()) => {
     const proj = JSON.parse(localStorage.getItem(project.id));
-    console.log('item' + JSON.stringify(item));
     proj.tasks.push(item);
     layout.loadTask(proj, item);
     localStorage.setItem(project.id, JSON.stringify(proj));
-    // setup.counterTask += 1;
   },
   deleteTask: (project, item) => {
     let tempData = JSON.parse(localStorage.getItem(project.id));
@@ -50,6 +57,26 @@ const behaviour = {
   addNewProject: (project = behaviour.getNewProjectData()) => {
     localStorage.setItem(setup.counterProj, JSON.stringify(project));
     setup.setColumnInit(project);
+  },
+  getLocal: (id) => JSON.parse(localStorage.getItem(id)),
+  setLocal: (id, project) => localStorage.setItem(id, JSON.stringify(project)),
+  setEditable: (segment, key) => {
+    document.body.addEventListener('click', (e) => {
+      if (e.target !== segment) {
+        const segmentCard = segment.parentElement;
+        const taskId = segmentCard.id.split('-')[1];
+        const project = segmentCard.parentElement;
+        const projectId = project.id.split('-')[1];
+        const tempObj = behaviour.getLocal(projectId);
+
+        tempObj.tasks.map((task) => {
+          if (taskId == task.id) {
+            task[key] = segment.innerText;
+            behaviour.setLocal(taskId, tempObj);
+          }
+        });
+      }
+    });
   }
 };
 

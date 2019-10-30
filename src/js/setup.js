@@ -24,7 +24,7 @@ const setup = {
         setup.counterTask,
         'Test task',
         'Hi!',
-        currentDate.toLocaleDateString('en-US')
+        '2029-10-01'
       );
       demo.tasks.push(taskInit);
       localStorage.setItem(setup.counterProj, JSON.stringify(demo));

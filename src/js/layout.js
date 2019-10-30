@@ -33,6 +33,17 @@ const layout = {
       { innerText: project.name },
       { contentEditable: 'true' }
     ]);
+    headerContent.addEventListener('click', () => {
+      document.body.addEventListener('click', (e) => {
+        if (e.target !== headerContent) {
+          const princ = headerContent.parentElement.parentElement.id;
+          const projectId = princ.split('-')[1];
+          const tempObj = behaviour.getLocal(projectId);
+          tempObj.name = headerContent.innerText;
+          behaviour.setLocal(projectId, tempObj);
+        }
+      });
+    });
     append(colContainer, projectContainer);
     append(projectContainer, mainSegment);
     append(mainSegment, headerSegment);
@@ -55,20 +66,31 @@ const layout = {
   },
 
   cardFields: () => {
-    const basicSeg = create('div', [{ className: 'ui segment left-text' }]);
+    const basicSeg = create('div', [
+      { className: 'ui segment left-text normal' }
+    ]);
     const sgmDivider = create('div', [{ className: 'ui clearing divider' }]);
     const sgmCard = create('span', [
       { className: 'task-title edit' },
       { contentEditable: 'true' }
     ]);
+    sgmCard.addEventListener('click', () => {
+      behaviour.setEditable(sgmCard, 'title');
+    });
     const contentDescription = create('div', [
       { className: 'content edit' },
       { contentEditable: 'true' }
     ]);
+    contentDescription.addEventListener('click', () => {
+      behaviour.setEditable(contentDescription, 'description');
+    });
     const contentDate = create('div', [
       { className: 'meta edit' },
       { contentEditable: 'true' }
     ]);
+    contentDate.addEventListener('click', () => {
+      behaviour.setEditable(contentDate, 'dueDate');
+    });
     const contentButtons = create('div', [{ className: 'meta' }]);
     const deleteBtn = create('label', [
       { className: 'ui right icon label delete' },
@@ -115,9 +137,13 @@ const layout = {
       const card = layout.cardFields();
       card['title'].innerText = task.title;
       card['content'].innerText = task.description;
-      card['date'].innerText = task.date;
+      card['date'].innerText = task.dueDate;
       if (task.status) {
         card['segment'].classList.toggle('completed');
+      }
+      if (task.priority) {
+        card['segment'].classList.toggle('important');
+        card['segment'].classList.toggle('normal');
       }
       card['segment'].id = `sgc-${task.id}`;
       card['contentButtons'].id = `btns-${task.id}`;
@@ -156,8 +182,7 @@ const layout = {
       {
         name: 'Due date',
         type: 'date',
-        id: 'task-date',
-        placeholder: 'DD/MM/YYYY'
+        id: 'task-date'
       }
     ];
     const checkboxes = [
