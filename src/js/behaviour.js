@@ -31,8 +31,14 @@ const behaviour = {
     principal.parentElement.removeChild(principal);
   },
   editStatus: (project, item) => {
-    let tempData = JSON.parse(localStorage.getItem(project.id));
-    tempData.tasks[item.id].status = true;
+    project.tasks.map((task) => {
+      if (task.id == item.id) {
+        task.status = !task.status ? true : false;
+        localStorage.setItem(project.id, JSON.stringify(project));
+        const card = document.getElementById(`sgc-${item.id}`);
+        card.classList.toggle('false');
+      }
+    });
   },
   getNewProjectData: () => {
     let project_id = setup.counterProj;

@@ -85,6 +85,12 @@ const layout = {
       { className: 'ui right icon label done' },
       { innerText: 'Complete' }
     ]);
+    doneBtn.addEventListener('click', () => {
+      const id = deleteBtn.id.split('-');
+      const parent = JSON.parse(localStorage.getItem(id[1]));
+      const conTask = parent.tasks.filter((task) => task['id'] == id[2]);
+      behaviour.editStatus(parent, conTask[0]);
+    });
     const doneIcon = create('i', [{ className: 'check circle icon' }]);
     return {
       segment: basicSeg,

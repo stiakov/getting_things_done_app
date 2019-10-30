@@ -59,3 +59,7 @@ body {
   border-left: solid;
   border-left-width: thick;
 }
+
+.false {
+  background-color: grey !important;
+}
