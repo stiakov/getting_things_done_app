@@ -44,13 +44,11 @@ const layout = {
   },
   cardFields: () => {
     const basicSeg = crea('div', [{ className: 'ui segment left-text' }]);
-
     const sgmDivider = crea('div', [{ className: 'ui clearing divider' }]);
     const sgmCard = crea('span', [
       { className: 'task-title edit' },
       { contentEditable: 'true' }
     ]);
-
     const contentDescription = crea('div', [
       { className: 'content edit' },
       { contentEditable: 'true' }
@@ -60,12 +58,10 @@ const layout = {
       { contentEditable: 'true' }
     ]);
     const contentButtons = crea('div', [{ className: 'meta' }]);
-
     const deleteBtn = crea('label', [
       { className: 'ui right icon label delete' },
       { innerText: 'Delete' }
     ]);
-
     const deleteIcon = crea('i', [{ className: 'trash alternate icon' }]);
     const doneBtn = crea('label', [
       { className: 'ui right icon label done' },
