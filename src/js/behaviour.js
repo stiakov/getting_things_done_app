@@ -21,7 +21,6 @@ const behaviour = {
       task_priority,
       task_status
     );
-    console.log(item);
     return item;
   },
   addTaskToProject: (project, item = behaviour.getTaskData()) => {
