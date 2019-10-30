@@ -17,28 +17,31 @@ const setup = {
       setup.counterProj,
       'Project Demo'
     );
-    const taskInit = sm.todoItem(
-      setup.counterTask,
-      'Test task',
-      'Hi!',
-      '2019-12-12'
-    );
-    // buscar fecha por defecto
-    demo.tasks.push(taskInit);
-    // setup.counterTask += 1;
-    // taskInit.title = 'Hello hello';
-    // taskInit.id = setup.counterTask;
-    // task.description = 'Testing';
-    // task.dueDate = '2020-12-24';
-    // demo.tasks.push(taskInit);
-    localStorage.setItem(setup.counterProj, JSON.stringify(demo));
-    setup.getProjectsNum();
 
+    if (localStorage.length < 1) {
+      const currentDate = new Date();
+      const taskInit = sm.todoItem(
+        setup.counterTask,
+        'Test task',
+        'Hi!',
+        currentDate.toLocaleDateString("en-US")
+      );
+      demo.tasks.push(taskInit);
+      localStorage.setItem(setup.counterProj, JSON.stringify(demo));
+    } else {
+      if (localStorage.length > 0) {
+        const keys = Object.keys(localStorage);
+        keys.forEach((key) => {
+          setup.setColumnInit(JSON.parse(localStorage.getItem(key)));
+        });
+      }
+    }
+    setup.getProjectsNum();
     return demo;
   },
   setColumnInit: (project) => {
     layout.column(project);
-    layout.task(project);
+    layout.loadTask(project);
     layout.taskProjectButton(project);
   },
   getProjectsNum: () => {
