@@ -116,6 +116,9 @@ const layout = {
       card['title'].innerText = task.title;
       card['content'].innerText = task.description;
       card['date'].innerText = task.date;
+      if (task.status) {
+        card['segment'].classList.toggle('completed');
+      }
       card['segment'].id = `sgc-${task.id}`;
       card['contentButtons'].id = `btns-${task.id}`;
       card['delete'].id = `trash-${project.id}-${task.id}`;

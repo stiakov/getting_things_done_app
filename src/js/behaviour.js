@@ -37,7 +37,7 @@ const behaviour = {
         task.status = !task.status ? true : false;
         localStorage.setItem(project.id, JSON.stringify(project));
         const card = getById(`sgc-${item.id}`);
-        card.classList.toggle('false');
+        card.classList.toggle('completed');
       }
     });
   },

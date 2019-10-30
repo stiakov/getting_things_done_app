@@ -60,6 +60,6 @@ body {
   border-left-width: thick;
 }
 
-.false {
+.completed {
   background-color: grey !important;
 }
