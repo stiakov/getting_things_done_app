@@ -86,28 +86,36 @@ const layout = {
       doneIcon
     }
   },
-  task: (project) => {
+  loadTask: (project, task = []) => {
     const mainSegmnt = getById(`segments-${project.id}`);
-    const card = layout.cardFields();
-    card['title'].innerText = project.tasks[0].title;
-    card['content'].innerText = project.tasks[0].description;
-    card['date'].innerText = project.tasks[0].date;
-    card['segment'].id = `sgc-${ project.id}-${project.tasks[0].id }`;
-    card['contentButtons'].id = `btns-${project.tasks[0].id}`;
-    card['delete'].id = `trash-${ project.tasks[0].id }`;
-    card['doneButton'].id = `check-${ project.tasks[0].id }`;
+    const taskCollection = task.length === 0 ? project.tasks : [task];
+    const addTaskBtn = getById(`newTaskBtn-${project.id}`);
+    if (addTaskBtn) mainSegmnt.removeChild(addTaskBtn);
 
-    mainSegmnt.appendChild(card['segment']);
-    card['segment'].appendChild(card['title']);
-    card['segment'].appendChild(card['divider']);
-    card['segment'].appendChild(card['content']);
-    card['segment'].appendChild(card['date']);
-    card['segment'].appendChild(card['contentButtons']);
-    card['contentButtons'].appendChild(card['delete']);
-    card['contentButtons'].appendChild(card['doneButton']);
-    card['delete'].appendChild(card['deleteIcon']);
-    card['doneButton'].appendChild(card['doneIcon']);
-    return card['segment'];
+    taskCollection.forEach((task) => {
+      const card = layout.cardFields();
+      card['title'].innerText = task.title;
+      card['content'].innerText = task.description;
+      card['date'].innerText = task.date;
+      card['segment'].id = `sgc-${ project.id}-${task.id }`;
+      card['contentButtons'].id = `btns-${task.id}`;
+      card['delete'].id = `trash-${ task.id }`;
+      card['doneButton'].id = `check-${ task.id }`;
+
+      card['segment'].appendChild(card['title']);
+      card['segment'].appendChild(card['divider']);
+      card['segment'].appendChild(card['content']);
+      card['segment'].appendChild(card['date']);
+      card['segment'].appendChild(card['contentButtons']);
+      card['contentButtons'].appendChild(card['delete']);
+      card['contentButtons'].appendChild(card['doneButton']);
+      card['delete'].appendChild(card['deleteIcon']);
+      card['doneButton'].appendChild(card['doneIcon']);
+      mainSegmnt.appendChild(card['segment']);
+
+    });
+    if (addTaskBtn) append(mainSegmnt, addTaskBtn);
+    return mainSegmnt;
   },
 
   formNewTask: (project) => {

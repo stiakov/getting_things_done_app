@@ -6,7 +6,6 @@ const trigger = {
     btnsDel.forEach((btn) => {
       btn.addEventListener('click', () => {
         // remove function
-        console.log('in deleting item listener...');
         behaviour.deleteTask();
       });
     });
@@ -14,10 +13,8 @@ const trigger = {
   setEdit: (project, item) => {
     const fields = Array.from(document.getElementsByClassName('edit'));
     fields.forEach((field) => {
-      console.log(field);
       field.addEventListener('click', () => {
         // edit function
-        console.log('Editing item..');
       });
     });
   },

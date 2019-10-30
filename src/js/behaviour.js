@@ -18,7 +18,7 @@ const behaviour = {
     const proj = JSON.parse(localStorage.getItem(project.id));
     console.log('item' + JSON.stringify(item));
     proj.tasks.push(item);
-    layout.task(proj);
+    layout.loadTask(proj, item);
     localStorage.setItem(project.id, JSON.stringify(proj));
   },
   deleteTask: () => {
