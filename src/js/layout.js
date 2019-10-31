@@ -15,6 +15,12 @@ export const create = (type, attrib = []) => {
 };
 
 const layout = {
+  addNewProjectBtn: () => {
+    const button = getById('btnNewProject');
+    button.addEventListener('click', () => {
+      layout.loadModal('project', layout.formNewProject());
+    });
+  },
   column: (project) => {
     const colContainer = getById('colContainer');
     const projectContainer = create('div', [
@@ -234,9 +240,7 @@ const layout = {
 
     addTaskBtn.addEventListener('click', () => {
       behaviour.addTaskToProject(project);
-      const main = getById('main-container');
-      const modal = getById('modal');
-      main.removeChild(modal);
+      behaviour.removeModal();
     });
 
     append(formContainer, addTaskBtn);
@@ -252,7 +256,10 @@ const layout = {
       { className: 'ui button btn-style extra-space' },
       { innerText: 'Create Project' }
     ]);
-    button.addEventListener('click', () => behaviour.addNewProject());
+    button.addEventListener('click', () => {
+      behaviour.addNewProject();
+      behaviour.removeModal();
+    });
     return { title, button };
   },
   loadModal: (from, fields) => {
