@@ -13,7 +13,7 @@ const behaviour = {
     const task_date = getById('task-date').value;
     const task_priority = getById('task-priority').checked;
     const task_status = getById('task-status').checked;
-    const item = sm.todoItem(
+    return sm.todoItem(
       task_id,
       task_title,
       task_description,
@@ -21,7 +21,6 @@ const behaviour = {
       task_priority,
       task_status
     );
-    return item;
   },
   addTaskToProject: (project, item = behaviour.getTaskData()) => {
     const proj = JSON.parse(localStorage.getItem(project.id));
@@ -61,6 +60,11 @@ const behaviour = {
   addNewProject: (project = behaviour.getNewProjectData()) => {
     localStorage.setItem(setup.counterProj, JSON.stringify(project));
     setup.setColumnInit(project);
+  },
+  deleteProject: (id) => {
+    localStorage.removeItem(id);
+    const column = getById(`col-${id}`);
+    column.parentElement.removeChild(column);
   },
   getLocal: (id) => JSON.parse(localStorage.getItem(id)),
   setLocal: (id, project) => localStorage.setItem(id, JSON.stringify(project)),

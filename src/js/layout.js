@@ -50,10 +50,21 @@ const layout = {
         }
       });
     });
+    const spanTitle = create('span', [{ id: 'spanTitle'}]);
+    const spanIcon = create('span', [{ id: 'spanDelete'}]);
+    const delProjectBtn = create('div', [{ className: 'ui top right attached label' }]);
+    const iconDelBtn = create('i', [{ className: 'trash alternate icon' }]);
+
+    delProjectBtn.addEventListener('click', () => behaviour.deleteProject(project.id));
+
+    append(spanTitle, headerContent);
+    append(spanIcon, delProjectBtn);
+    append(delProjectBtn, iconDelBtn);
+    append(headerSegment, spanTitle);
+    append(headerSegment, spanIcon);
     append(colContainer, projectContainer);
     append(projectContainer, mainSegment);
     append(mainSegment, headerSegment);
-    append(headerSegment, headerContent);
     return colContainer;
   },
 
