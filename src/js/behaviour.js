@@ -54,7 +54,6 @@ const behaviour = {
   },
   getNewProjectData: () => {
     let project_id = setup.getProjectsNum();
-    console.log(project_id);
     const project_name = getById('project-name').value;
     const project = sm.ProjectManager.newProject(project_id, project_name);
     return project;
