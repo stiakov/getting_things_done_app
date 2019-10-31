@@ -42,7 +42,7 @@ const layout = {
     headerContent.addEventListener('click', () => {
       document.body.addEventListener('click', (e) => {
         if (e.target !== headerContent) {
-          const princ = headerContent.parentElement.parentElement.id;
+          const princ = headerContent.parentElement.parentElement.parentElement.id;
           const projectId = princ.split('-')[1];
           const tempObj = behaviour.getLocal(projectId);
           tempObj.name = headerContent.innerText;

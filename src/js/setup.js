@@ -19,7 +19,6 @@ const setup = {
     );
 
     if (localStorage.length < 1) {
-      const currentDate = new Date();
       const taskInit = sm.todoItem(
         setup.counterTask,
         'Test task',
@@ -31,7 +30,7 @@ const setup = {
     } else {
       if (localStorage.length > 0) {
         const keys = Object.keys(localStorage);
-        keys.forEach((key) => {
+        keys.sort().forEach((key) => {
           setup.setColumnInit(JSON.parse(localStorage.getItem(key)));
         });
       }

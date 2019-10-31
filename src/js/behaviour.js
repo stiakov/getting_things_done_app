@@ -13,7 +13,7 @@ const behaviour = {
     const task_date = getById('task-date').value;
     const task_priority = getById('task-priority').checked;
     const task_status = getById('task-status').checked;
-    return sm.todoItem(
+    const item =  sm.todoItem(
       task_id,
       task_title,
       task_description,
@@ -21,6 +21,7 @@ const behaviour = {
       task_priority,
       task_status
     );
+    return item;
   },
   addTaskToProject: (project, item = behaviour.getTaskData()) => {
     const proj = JSON.parse(localStorage.getItem(project.id));
