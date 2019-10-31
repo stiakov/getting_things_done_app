@@ -20,18 +20,10 @@ module.exports = {
       }
     }),
     // This can be deleted, only index is required.
-    new HtmlWebpackPlugin({
-      filename: 'createProjectModal.html',
-      template: 'src/createProjectModal.html'
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'columns.html',
-      template: 'src/columns.html'
-    }),
-    new HtmlWebpackPlugin({
-      filename: 'createFormTask.html',
-      template: 'src/createFormTask.html'
-    })
+    // new HtmlWebpackPlugin({
+    //   filename: 'createProjectModal.html',
+    //   template: 'src/createProjectModal.html'
+    // }),
   ],
   module: {
     rules: [
