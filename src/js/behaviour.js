@@ -53,13 +53,14 @@ const behaviour = {
     });
   },
   getNewProjectData: () => {
-    let project_id = setup.counterProj;
+    let project_id = setup.getProjectsNum();
+    console.log(project_id);
     const project_name = getById('project-name').value;
     const project = sm.ProjectManager.newProject(project_id, project_name);
     return project;
   },
   addNewProject: (project = behaviour.getNewProjectData()) => {
-    localStorage.setItem(setup.counterProj, JSON.stringify(project));
+    localStorage.setItem(project_id, JSON.stringify(project));
     setup.setColumnInit(project);
   },
   deleteProject: (id) => {
