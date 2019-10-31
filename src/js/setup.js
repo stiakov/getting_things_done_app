@@ -22,11 +22,12 @@ const setup = {
       const taskInit = sm.todoItem(
         setup.counterTask,
         'Test task',
-        'Hi!',
+        'Hi! Click on me to edit',
         '2029-10-01'
       );
       demo.tasks.push(taskInit);
       localStorage.setItem(setup.counterProj, JSON.stringify(demo));
+      setup.setColumnInit(demo);
     } else {
       if (localStorage.length > 0) {
         const keys = Object.keys(localStorage);

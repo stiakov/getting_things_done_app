@@ -11,7 +11,11 @@ const systemManager = {
   },
 
   ProjectManager: {
-    newProject: (id, name, tasks = []) => ({ id, name, tasks })
+    newProject: (id, name, tasks = []) => ({
+      id,
+      name,
+      tasks
+    })
   }
 };
 export default systemManager;

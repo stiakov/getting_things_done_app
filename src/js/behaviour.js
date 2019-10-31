@@ -13,7 +13,7 @@ const behaviour = {
     const task_date = getById('task-date').value;
     const task_priority = getById('task-priority').checked;
     const task_status = getById('task-status').checked;
-    const item =  sm.todoItem(
+    const item = sm.todoItem(
       task_id,
       task_title,
       task_description,
@@ -81,7 +81,7 @@ const behaviour = {
         tempObj.tasks.map((task) => {
           if (taskId == task.id) {
             task[key] = segment.innerText;
-            behaviour.setLocal(taskId, tempObj);
+            behaviour.setLocal(projectId, tempObj);
           }
         });
       }
