@@ -37,6 +37,11 @@ const behaviour = {
     const principal = getById(`sgc-${item.id}`);
     principal.parentElement.removeChild(principal);
   },
+  removeModal: () => {
+    const main = getById('main-container');
+    const modal = getById('modal');
+    main.removeChild(modal);
+  },
   editStatus: (project, item) => {
     project.tasks.map((task) => {
       if (task.id == item.id) {
@@ -50,7 +55,7 @@ const behaviour = {
   getNewProjectData: () => {
     let project_id = setup.counterProj;
     const project_name = getById('project-name').value;
-    const project = sm.newProject(project_id, project_name);
+    const project = sm.ProjectManager.newProject(project_id, project_name);
     return project;
   },
   addNewProject: (project = behaviour.getNewProjectData()) => {
