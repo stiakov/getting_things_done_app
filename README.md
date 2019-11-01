@@ -9,7 +9,7 @@ It's a ToDo App - Full featured with Javascript, OOP, aiming SOLID principles.
 
 ## Preview
 There are two options to load this App.
-* Visit the [Pending](https://sys1.co).
+* [Click here for live version](http://stiakov.github.io/getting_things_done_app/).
 * Download the repo, checkout to **development** branch and load the `./dist/index.html` in your browser.
 
 ## Development and contributions
