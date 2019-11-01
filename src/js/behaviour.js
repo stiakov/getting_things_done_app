@@ -39,8 +39,9 @@ const behaviour = {
   },
   removeModal: () => {
     const main = getById('main-container');
-    const modal = getById('modal');
-    main.removeChild(modal);
+    let modal = getById('modal');
+    if (modal) main.removeChild(modal);
+    modal = undefined;
   },
   editStatus: (project, item) => {
     project.tasks.map((task) => {
@@ -59,7 +60,7 @@ const behaviour = {
     return project;
   },
   addNewProject: (project = behaviour.getNewProjectData()) => {
-    localStorage.setItem(project_id, JSON.stringify(project));
+    localStorage.setItem(project.id, JSON.stringify(project));
     setup.setColumnInit(project);
   },
   deleteProject: (id) => {
