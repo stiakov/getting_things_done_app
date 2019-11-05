@@ -1,7 +1,7 @@
 ![node](https://img.shields.io/node/v/webpack?style=flat-square)
 ![](https://img.shields.io/badge/beta-development-green?style=flat-square)
 
-# Making Things Done – JS ToDo App (BETA)
+# Getting Things Done – JS ToDo App (BETA)
 It's a ToDo App - Full featured with Javascript, OOP, aiming SOLID principles.
 
 ## Requirements
