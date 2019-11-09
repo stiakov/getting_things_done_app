@@ -45,9 +45,7 @@ const setup = {
     layout.loadTask(project);
     layout.taskProjectButton(project);
   },
-  getProjectsNum: () => {
-    setup.counterProj = localStorage.length + 1;
-  },
+  getProjectsNum: () => (setup.counterProj = localStorage.length + 1),
   getTaskCounter: () => (setup.counterTask += 1),
   loadTaskNum: () => {
     const keys = Object.keys(localStorage);
