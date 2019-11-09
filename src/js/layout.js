@@ -6,11 +6,7 @@ export const append = (parent, child) => parent.appendChild(child);
 
 export const create = (type, attrib = []) => {
   const elem = document.createElement(type);
-  if (attrib.length > 0) {
-    attrib.forEach((item) => {
-      Object.assign(elem, item);
-    });
-  }
+  if (attrib.length > 0) attrib.forEach((item) => Object.assign(elem, item));
   return elem;
 };
 
@@ -31,9 +27,7 @@ const layout = {
       { className: 'ui placeholder segments' },
       { id: `segments-${project.id}` }
     ]);
-    const headerSegment = create('div', [
-      { className: 'ui center aligned segment' }
-    ]);
+    const headerSegment = create('div', [{ className: 'ui center aligned segment' }]);
     const headerContent = create('h2', [
       { className: 'header edit' },
       { innerText: project.name },
@@ -42,8 +36,7 @@ const layout = {
     headerContent.addEventListener('click', () => {
       document.body.addEventListener('click', (e) => {
         if (e.target !== headerContent) {
-          const princ =
-            headerContent.parentElement.parentElement.parentElement.id;
+          const princ = headerContent.parentElement.parentElement.parentElement.id;
           const projectId = princ.split('-')[1];
           const tempObj = behaviour.getLocal(projectId);
           tempObj.name = headerContent.innerText;
@@ -53,14 +46,10 @@ const layout = {
     });
     const spanTitle = create('span', [{ id: 'spanTitle' }]);
     const spanIcon = create('span', [{ id: 'spanDelete' }]);
-    const delProjectBtn = create('div', [
-      { className: 'ui top right attached label' }
-    ]);
+    const delProjectBtn = create('div', [{ className: 'ui top right attached label' }]);
     const iconDelBtn = create('i', [{ className: 'trash alternate icon' }]);
 
-    delProjectBtn.addEventListener('click', () =>
-      behaviour.deleteProject(project.id)
-    );
+    delProjectBtn.addEventListener('click', () => behaviour.deleteProject(project.id));
 
     append(spanTitle, headerContent);
     append(spanIcon, delProjectBtn);
@@ -96,9 +85,7 @@ const layout = {
       { className: 'task-title edit' },
       { contentEditable: 'true' }
     ]);
-    sgmCard.addEventListener('click', () => {
-      behaviour.setEditable(sgmCard, 'title');
-    });
+    sgmCard.addEventListener('click', () => behaviour.setEditable(sgmCard, 'title'));
     const contentDescription = create('div', [
       { className: 'content edit' },
       { contentEditable: 'true' }
@@ -278,6 +265,7 @@ const layout = {
     });
     return { title, button };
   },
+  
   loadModal: (from, fields) => {
     // from must be 'project' or 'task'
     const modalTitle = from === 'project' ? 'New Project' : 'New Task';
