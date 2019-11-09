@@ -42,7 +42,8 @@ const layout = {
     headerContent.addEventListener('click', () => {
       document.body.addEventListener('click', (e) => {
         if (e.target !== headerContent) {
-          const princ = headerContent.parentElement.parentElement.parentElement.id;
+          const princ =
+            headerContent.parentElement.parentElement.parentElement.id;
           const projectId = princ.split('-')[1];
           const tempObj = behaviour.getLocal(projectId);
           tempObj.name = headerContent.innerText;
@@ -50,12 +51,16 @@ const layout = {
         }
       });
     });
-    const spanTitle = create('span', [{ id: 'spanTitle'}]);
-    const spanIcon = create('span', [{ id: 'spanDelete'}]);
-    const delProjectBtn = create('div', [{ className: 'ui top right attached label' }]);
+    const spanTitle = create('span', [{ id: 'spanTitle' }]);
+    const spanIcon = create('span', [{ id: 'spanDelete' }]);
+    const delProjectBtn = create('div', [
+      { className: 'ui top right attached label' }
+    ]);
     const iconDelBtn = create('i', [{ className: 'trash alternate icon' }]);
 
-    delProjectBtn.addEventListener('click', () => behaviour.deleteProject(project.id));
+    delProjectBtn.addEventListener('click', () =>
+      behaviour.deleteProject(project.id)
+    );
 
     append(spanTitle, headerContent);
     append(spanIcon, delProjectBtn);
@@ -288,8 +293,7 @@ const layout = {
 
     document.body.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        if (modal) mainContainer.removeChild(modal);
-        modal = undefined;
+        behaviour.removeModal();
       }
     });
 
