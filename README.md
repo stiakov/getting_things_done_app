@@ -11,7 +11,7 @@ It's a ToDo App, Trello style - Full featured with Javascript, OOP, aiming SOLID
 ## 🔨 Requirements
 * Latest version of **[NodeJS](https://nodejs.org/en/)** *-- (npm included)*
 
-## ✨Live Demo
+## ✨ Live Demo
 
 You can look at it [here](http://stiakov.github.io/getting_things_done_app/)
 
@@ -37,6 +37,9 @@ npm install
 ```sh
 npm run watch
 ```
+
+## :pencil2: Todo
+- [Testing](https://github.com/stiakov/getting_things_done_app/issues/6)
 
 ## Authors
 
