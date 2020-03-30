@@ -9,11 +9,11 @@ It's a ToDo App, Trello style - Full featured with Javascript, OOP, aiming SOLID
 ![alt text](docs/thingsdone.png)
 
 ## 🔨 Requirements
-* Latest version of **[NodeJS](https://nodejs.org/en/)** *-- (npm included)*
+* Latest version of **[NodeJS](https://nodejs.org/en/)** *-- (npm included)*.
 
 ## ✨ Live Demo
 
-You can look at it [here](http://stiakov.github.io/getting_things_done_app/)
+You can look at it [here](http://stiakov.github.io/getting_things_done_app/).
 
 ## 🚀 Getting Started
 
